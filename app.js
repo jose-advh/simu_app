@@ -1,23 +1,10 @@
-import Database  from "./backend/config/cls_db.js";
+import express from "express";
+import preguntas from "./backend/controllers/preguntas.js";
 
+const app = express();
 
-const db = new Database();
+app.get('/preguntas', preguntas); 
 
- function main() {
-  try {
-    db.connect().then (()=>{
-      db.query(`SELECT * FROM usuario`).then((result) => {
-        console.log(result);
-      }).finally(()=>{
-        db.close().then(()=>{
-          console.log('Database connection closed');
-        }).catch((error)=>{
-          console.error("Database not closed", error);          
-        })
-      })
-    })
-  } catch(error) {
-    console.error(error);
-  }
-}
-main();
+app.listen(3000, () => {
+  console.log('Servidor corriendo en el puerto 3000');
+});

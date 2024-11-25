@@ -7,7 +7,7 @@ class Database {
       host: 'localhost',
       user: 'root',
       password: '',
-      database: 'bd_simu',
+      database: 'db_simu',
     };
   };
 
