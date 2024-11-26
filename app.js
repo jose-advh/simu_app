@@ -6,7 +6,7 @@ const db = new Database();
  function main() {
   try {
     db.connect().then (()=>{
-      db.query(`SELECT * FROM usuario`).then((result) => {
+      db.query(`SELECT id_pregunta, pregunta FROM pregunta WHERE materia_id = "lc" LIMIT 2`).then((result) => {
         console.log(result);
       }).finally(()=>{
         db.close().then(()=>{
