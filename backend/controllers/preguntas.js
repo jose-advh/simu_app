@@ -1,4 +1,4 @@
-import Database from "../config/cls_db.js";
+import Database from "../config/db.js";
 
 const db = new Database();
 
