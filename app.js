@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import authRoutes from './backend/routes/auth_Routes.js'
 
 const app = express();
+dotenv.config();
+
+console.log('SECRETA:', process.env.SECRETA);
 
 
 app.use(cors());
@@ -13,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded(
   { extended: true}
 ));
-app.use('simu/auth', authRoutes);
+app.use('/', authRoutes);
 
 const PORT = process.env.PORT || 3005;
 app.listen(3005, () => {
