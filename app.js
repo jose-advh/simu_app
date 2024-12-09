@@ -1,23 +1,22 @@
-import Database  from "./backend/config/cls_db.js";
+import express from "express";
+import preguntas from "./backend/controllers/preguntas.js";
+import cors from "cors";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import authRoutes from './backend/routes/auth_Routes.js'
+
+const app = express();
+dotenv.config();
+
+console.log('SECRETA:', process.env.SECRETA);
 
 
-const db = new Database();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/', authRoutes);
 
- function main() {
-  try {
-    db.connect().then (()=>{
-      db.query(`SELECT id_pregunta, pregunta FROM pregunta WHERE materia_id = "lc" LIMIT 2`).then((result) => {
-        console.log(result);
-      }).finally(()=>{
-        db.close().then(()=>{
-          console.log('Database connection closed');
-        }).catch((error)=>{
-          console.error("Database not closed", error);          
-        })
-      })
-    })
-  } catch(error) {
-    console.error(error);
-  }
-}
-main();
+const PORT = process.env.PORT || 3005;
+app.listen(3005, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});

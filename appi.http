@@ -1,0 +1,9 @@
+#### Crear usuario
+POST http:localhost:3005/simu/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Juan",
+  "correo": "juan@gmail.com",
+  "contraseña": "12345678",
+}
