@@ -1,36 +1,61 @@
-import Database from "../config/cls_db";
-import bcrypt from 'bcrypt';
+import Usuario from '../models/Usuario.js';
+import jwt from 'jsonwebtoken';
+import { registroSchema, loginSchema } from '../schemas/authSchemas.js';
 
-const db = Database();
+const authController = {
+  async register(req, res) {
+    try {
+      const { nombre, correo, contrasena } = registroSchema.parse(req.body);
+      const usuario = new Usuario();
 
-class authController {
-    async login(email, password) {
-        try {
-            await db.connect();
-            const rows = await db.query('SELECT * FROM usuarios WHERE email = ?', [email])
+      const usuarioExistente = await Usuario.obtenerPorCorreo(correo);
+      if (usuarioExistente) {
+        return res.status(400).json({ mensaje: 'El correo ya está en uso' });
+      }
 
-            if (rows.length === 0) {
-                throw new Error('El correo ingresado no existe.')
-            }
+      await Usuario.crear(nombre, correo, contrasena);
+      res.status(201).json({ message: 'Usuario creado con éxito' });
+    } catch (error) {
+      if (error.errors) {
+        res.status(400).json({ error: error.errors });
+      } else {
+        res.status(500).json({ error: 'Error al crear el usuario' });
+        console.error(error);
+      }
+    }
+  },
 
-            const usuario = rows[0];
+  async login(req, res) {
+    try {
+      const { correo, contrasena } = loginSchema.parse(req.body);
+      const usuario = new Usuario();
 
-            // TO-DO: Hacer comparación con bcrypt
+      const usuarioExistente = await Usuario.obtenerPorCorreo(correo);
+      if (!usuarioExistente) {
+        return res.status(400).json({ mensaje: 'El correo no existe' });
+      }
 
-            return {
-                success: true,
-                message: 'Te has logeado correctamente.',
-                usuario: {
-                    id: usuario.id_contraseña,
-                    nombre: usuario.nombre,
-                    email: usuario.email,
-                    password: usuario.contraseña
-                }
-            }
+      const esValido = await usuario.validarContrasena(usuarioExistente.contraseña, contrasena);
+      if (!esValido) {
+          return res.status(400).json({ mensaje: 'La contraseña es incorrecta' });
+      }
 
+      const token = jwt.sign(
+        { id: usuarioExistente.id_usuario },
+        process.env.SECRETA,
+        { expiresIn: '2h' }
+      );
 
-        } catch {
+      res.json({ token, message: 'Inició sesión con éxito' });
+    } catch (error) {
+      if (error.errors) {
+        res.status(400).json({ error: error.errors });
+      } else {
+        res.status(500).json({ error: 'Error al iniciar sesión' });
+        console.error(error);
+      }
+    }
+  },
+};
 
-        }
-    } 
-}
+export default authController;
