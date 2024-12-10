@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos Simu - Acceso</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Inicia Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Oleo+Script&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
-    Login
+    <div class="page">
+        <div class="logo">
+            <img class="logo__img"
+                src="login_logo.png"
+                alt="Redes sociales">
+        </div>
+        <div class="header">
+            <h1 class="header__title">
+                <span class="header__word--main">Somos</span>
+                <br>
+                <span class="header__word--sub">simu</span>
+            </h1>
+        </div>
+     <div class="divider">
+        <form class="form" id="formLogin">
+            <h2 class="form__title">INICIA SESIÓN</h2>
+            <input type="email" class="form__input" id="email" placeholder="Correo electrónico">
+            <input type="password" id="password" class="form__input--password" placeholder="Contraseña">
+            <p class="form__forgot">
+                ¿Olvidaste tu contraseña? <span class="form__forgot--recover">Recupérala</span>
+            </p>
+            <button class="form__btn">INICIAR</button>
+            <p class="form__register">
+                ¿Aún no tienes cuenta? <span class="form__register--link">Regístrate aquí</span>
+            </p>
+        </form>
+    </div>
+    <script src="../js/auth.js"></script>
 </body>
 </html>
