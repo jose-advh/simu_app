@@ -12,11 +12,9 @@
 
 <body>
     <div class="page">
-        <div class="logo">
-            <img class="logo__img"
-                src="login_logo.png"
-                alt="Redes sociales">
-        </div>
+        <a href="../../index.html" class="logo">
+            Regresar
+        </a>
         <div class="header">
             <h1 class="header__title">
                 <span class="header__word--main">Somos</span>
@@ -24,20 +22,21 @@
                 <span class="header__word--sub">simu</span>
             </h1>
         </div>
-     <div class="divider">
+     <div class="divider"></div>
         <form class="form" id="formLogin">
             <h2 class="form__title">INICIA SESIÓN</h2>
-            <input type="email" class="form__input" id="email" placeholder="Correo electrónico">
-            <input type="password" id="password" class="form__input--password" placeholder="Contraseña">
+            <input type="email" class="form__input" id="email" placeholder="Correo electrónico" required>
+            <input type="password" id="password" class="form__input--password" placeholder="Contraseña" required>
             <p class="form__forgot">
                 ¿Olvidaste tu contraseña? <span class="form__forgot--recover">Recupérala</span>
             </p>
             <button class="form__btn">INICIAR</button>
             <p class="form__register">
-                ¿Aún no tienes cuenta? <span class="form__register--link">Regístrate aquí</span>
+                ¿Aún no tienes cuenta? <a href="register.html" class="form__register--link">Regístrate aquí</a>
             </p>
         </form>
     </div>
-    <script src="../js/auth.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
