@@ -6,7 +6,7 @@
 
 :root {
     --color-principal: #280046;
-    --color-secundario: #A734FF;
+    --color-secundario: #a22cfc;
     --color-terciario: #F6BFFF;
 
     --fuente-titulos: "Oleo Script", system-ui;
@@ -21,7 +21,7 @@
     padding: 0;
     text-decoration: none;
     list-style: none;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
  }
 
   /** PÁGINA PRINCIPAL **/
@@ -170,8 +170,6 @@
     font-size: 1.2em;
     color: var(--color-secundario);
 }
-
-
 
 .main__img {
     display: none;
@@ -457,6 +455,51 @@ hr {
     color: #FFFFFF;
     margin-left: auto;
 }
+
+/* PANEL */
+
+.header--panel {
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+    align-items: center;
+    height: 60vh !important;
+    border: 1px solid !important;
+    background: url(../imgs/backgrounds/panel.avif);
+    background-size: cover;
+}
+
+.header__navegacion {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prueba123 {
+    margin: auto;
+    max-height: 90%;
+}
+
+.header__title {
+    font-family: var(--fuente-titulos);
+    color: white;
+    font-size: 10rem;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 320px) {
     .header__item-title {
