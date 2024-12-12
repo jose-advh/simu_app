@@ -14,7 +14,7 @@ const authController = {
       }
 
       await Usuario.crear(nombre, correo, contrasena);
-      res.status(201).json({ message: 'Usuario creado con éxito' });
+      res.status(201).json({ mensaje: 'Usuario creado con éxito' });
     } catch (error) {
       if (error.errors) {
         res.status(400).json({ error: error.errors });
@@ -32,12 +32,12 @@ const authController = {
 
       const usuarioExistente = await Usuario.obtenerPorCorreo(correo);
       if (!usuarioExistente) {
-        return res.status(400).json({ mensaje: 'El correo no existe' });
+        return res.status(400).json({ mensaje: 'El correo proporcionado no existe, intente nuevamente.' });
       }
 
       const esValido = await usuario.validarContrasena(usuarioExistente.contraseña, contrasena);
       if (!esValido) {
-          return res.status(400).json({ mensaje: 'La contraseña es incorrecta' });
+          return res.status(400).json({ mensaje: 'La contraseña proporcionada no es correcta, vuelva a intentarlo.' });
       }
 
       const token = jwt.sign(
