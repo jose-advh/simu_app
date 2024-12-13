@@ -56,6 +56,20 @@ const authController = {
       }
     }
   },
+
+  validarToken(req, res) {
+    const token = req.headers['authorization']?.split(' ')[1];
+    if (!token) {
+      return res.status(401).json({ mensaje: 'No se proporcionó token' });
+    }
+
+    jwt.verify(token, process.env.SECRETA, (err) => {
+      if (err) {
+        return res.status(403).json({ mensaje: 'Token expirado o inválido'})
+      }
+      res.status(200).json({ messaje: 'Token válido' });
+    }); 
+  }
 };
 
 export default authController;

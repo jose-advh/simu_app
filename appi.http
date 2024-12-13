@@ -10,4 +10,15 @@ Content-Type: application/json
 
 
 #### Peticion get
-GET http://localhost:3005/simu/auth/
+POST http://localhost:3005/simu/auth/login
+Content-Type: application/json
+
+{
+  "correo": "juan@gmail.com",
+  "contrasena": "12345678"
+}
+
+
+### Validar token
+GET http://localhost:3005/simu/auth/validar-token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTczNDEzMDIwMiwiZXhwIjoxNzM0MTM3NDAyfQ.Jmif66O72C-eUVfKWrKPYroU_4fcxm3o5IWXThgiOYE

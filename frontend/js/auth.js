@@ -17,6 +17,7 @@ if (formLogin) {
             });
     
             const data = await response.json();
+            
             formLogin.reset();
     
             if (!response.ok) {
@@ -28,6 +29,9 @@ if (formLogin) {
                   });
                   return;
             }
+            
+            localStorage.setItem('token', data.token);
+            
             window.location.href = 'panel.html';
     });
 }
