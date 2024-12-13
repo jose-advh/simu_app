@@ -10,7 +10,6 @@ dotenv.config();
 const app = express();
 dotenv.config();
 
-console.log('SECRETA:', process.env.SECRETA);
 
 
 app.use(cors());
