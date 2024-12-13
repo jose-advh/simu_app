@@ -1,26 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simu - Panel</title>
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <header class="header header--panel">
-        <nav class="header__navegacion">
-            <li><a href="#" class="header__item header__item-title">
-                SOMOS <span class="header__span">SIMU</span>
-            </a></li>
-            <li>
-                <button>CERRAR SESIÓN</button>
-            </li>
-        </nav>  
-        <article class="prueba123">
-            <h2 class="header__title">SIMULACROS</h2>
-        </article>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header class="header--panel">
+      <nav class="header__navegacion">
+        <li>
+          <a href="#" class="header__item header__item--panel">
+            SOMOS <span class="header__span">SIMU</span>
+          </a>
+        </li>
+        <li>
+          <a class="header__item header__item-button">CERRAR SESIÓN</a>
+        </li>
+      </nav>
+      <article class="header__texto">
+        <h2 class="header__title">SIMULACROS</h2>
+        <p class="header__description">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
+          accusamus a quidem molestias ab, tempora ea rem ipsum, laudantium.
+        </p>
+      </article>
     </header>
-    <main></main>
+    <main class="main--panel">
+      <aside class="main__aside">
+        <article class="aside__user">
+          <img
+            class="aside__item"
+            src="../imgs/icons/avatar_icon.svg"
+            alt="Avatar usuario"
+          />
+          <p>Hola Usuario!</p>
+        </article>
+        <nav class="aside__nav">
+          <img
+            class="aside__item active"
+            src="../imgs/icons/simulacros_icon.svg"
+            alt=""
+          />
+          <img
+            class="aside__item"
+            src="../imgs/icons/resultados_icon.svg"
+            alt=""
+          />
+          <img
+            class="aside__item"
+            src="../imgs/icons/nosotros_icon.svg"
+            alt=""
+          />
+        </nav>
+        <article class="aside__settings">
+          <img
+            class="aside__item"
+            src="../imgs/icons/settings_icon.svg"
+            alt=""
+          />
+        </article>
+      </aside>
+
+<!-- TO-DO: HACER QUE TODO ESTÉ EN UN BOTÓN DE FILTRAR -->
+
+      <article class="main__contenido">
+        <nav class="contenido__nav">
+          <ul class="contenido__lista">
+            <li class="lista__item">
+              <span>MÁTEMATICAS</span>
+            </li>
+            <li class="lista__item">
+                <span>LECTURA CRÍTICA</span>
+              </li>
+              <li class="lista__item">
+                <span>NATURALES</span>
+              </li>
+            <li class="lista__item">
+              <span>SOCIALES</span>
+            </li>
+            <li class="lista__item">
+                <span>INGLÉS</span>
+              </li>
+          </ul>
+
+          <span>Todo</span>
+        </nav>
+      </article>
+    </main>
     <footer></footer>
-</body>
+
+    <script src="../js/panel.js"></script>
+  </body>
 </html>
