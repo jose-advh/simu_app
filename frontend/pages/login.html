@@ -3,10 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos Simu - Acceso</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Inicia Sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Oleo+Script&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-    Login
+    <div class="page">
+        <h2 class="form__title">INICIA SESIÓN</h2>
+        <a href="../../index.html" class="logo">
+        <div class="header">
+            <h1 class="header__title">
+                <span class="header__word--main">SOMOS</span>
+                <br>
+                <span class="header__word--sub">SIMU</span>
+            </h1>
+        </div>
+        </a>
+        <div class="divider"></div>
+        <form class="form" id="formLogin">
+            <input type="email" class="form__input" id="email" placeholder="Correo electrónico" required>
+            <input type="password" id="password" class="form__input--password" placeholder="Contraseña" required>
+            <p class="form__forgot">
+                ¿Olvidaste tu contraseña? <span class="form__forgot--recover">Recupérala</span>
+            </p>
+            <button class="form__btn">INICIAR</button>
+            <p class="form__register">
+                ¿Aún no tienes cuenta? <a href="register.html" class="form__register--link">Regístrate aquí</a>
+            </p>
+        </form>
+    </div>
+    <script type="module" src="../js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+
 </html>
