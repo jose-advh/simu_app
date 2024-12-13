@@ -16,7 +16,7 @@ console.log('SECRETA:', process.env.SECRETA);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', authRoutes);
+app.use('/simu', authRoutes);
 
 const PORT = process.env.PORT || 3005;
 app.listen(3005, () => {

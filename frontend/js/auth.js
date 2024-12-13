@@ -8,7 +8,7 @@ if (formLogin) {
         const correo = document.getElementById('email').value;
         const contrasena = document.getElementById('password').value;
     
-            const response = await fetch('http://localhost:3005/login', {
+            const response = await fetch('http://localhost:3005/simu/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ if (formRegister) {
         const correo = document.getElementById('email').value;
         const contrasena = document.getElementById('password').value;
     
-        const response = await fetch('http://localhost:3005/registro', {
+        const response = await fetch('http://localhost:3005/simu/auth/registro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

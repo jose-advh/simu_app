@@ -7,8 +7,8 @@ router.get( '/' , async (req, res) => {
   return res.status(200).json({ message: 'Hello World' });
 });
 
-router.post('/registro', authController.register);
+router.post('/auth/registro', authController.register);
 
-router.post('/login', authController.login);
+router.post('/auth/login', authController.login);
 
 export default router;
