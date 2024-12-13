@@ -6,7 +6,7 @@
 
 :root {
     --color-principal: #280046;
-    --color-secundario: #A734FF;
+    --color-secundario: #a22cfc;
     --color-terciario: #F6BFFF;
 
     --fuente-titulos: "Oleo Script", system-ui;
@@ -16,12 +16,16 @@
 
  /** RESET **/
 
+ html {
+    scroll-behavior: smooth;
+  }
+
 * {
     margin: 0;
     padding: 0;
     text-decoration: none;
     list-style: none;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
  }
 
   /** PÁGINA PRINCIPAL **/
@@ -69,6 +73,15 @@
     transition: .5s;
 }
 
+.header__item--panel {
+    color: var(--color-terciario);
+    text-shadow: 0px 3px 3px #80036f;
+    font-weight: 900;
+    font-size: 2.5em;
+    line-height: .9; 
+    transition: .5s;
+}
+
 .header__item-title:hover {
     transform: scale(1.1);
     opacity: .9;
@@ -101,6 +114,11 @@
 .main {
     display: flex;
     flex-direction: column;
+}
+
+.main--panel {
+    display: flex;
+    gap: 15px;
 }
 
 .main__section {
@@ -153,6 +171,16 @@
     width: 30px;
 }
 
+.main__icon--panel {
+    width: 20px !important;
+    cursor: pointer;
+    transition: .5s ease all;
+}
+
+.main__icon--panel:hover {
+    transform: scale(1.1);
+}
+
 .main__title {
     display: flex;
     flex-direction: column;
@@ -170,8 +198,6 @@
     font-size: 1.2em;
     color: var(--color-secundario);
 }
-
-
 
 .main__img {
     display: none;
@@ -458,6 +484,142 @@ hr {
     margin-left: auto;
 }
 
+/* PANEL */
+
+.header--panel {
+    display: flex;
+    flex-direction: column;
+    object-fit: contain;
+    align-items: center;
+    padding-top: 1rem;
+    height: 60vh !important;
+    border: 1px solid !important;
+    background-image: linear-gradient(rgba(0,0,0,.8), rgba(29, 32, 30, 0.6)), url("../imgs/backgrounds/prueba.jpeg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+.header__navegacion {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    max-height: 90%;
+    color: white;
+}
+
+.header__title {
+    font-family: var(--fuente-titulos);
+    font-size: 10rem;
+    font-weight: 500;
+}
+
+.header__description {
+    font-family: var(--fuente-secundario);
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .header__title {
+        font-size: 3rem;
+    }
+}
+
+.main__aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    background-color: rgb(118, 30, 136);
+    width: 7%;
+    height: 100vh;
+}
+
+.aside__user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 70%;
+    font-family: var(--fuente-secundario);
+
+    gap: 5px;
+    color: white;
+}
+
+
+.aside__item {
+    width: 70%;
+}
+
+.aside__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 70%;
+}
+
+/* TO-DO: HACER QUE NO HAYA TANTA REDUNDANCIA */
+
+.aside__settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+}
+
+.active {
+    background-color: var(--color-secundario) !important;
+    border-radius: 15px;
+}
+
+.main__contenido {
+    width: 91%;
+    display: flex;
+    flex-direction: column;
+    padding-top: .5rem;
+}
+
+.contenido__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F6BFFF;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.contenido__lista {
+    display: flex;
+    gap: 15px;
+}
+
+.lista__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--fuente-secundario);
+}
+
+
+
+
+
+
+
+
 @media (max-width: 320px) {
     .header__item-title {
         font-size: 2em;
@@ -469,6 +631,10 @@ hr {
 }
 
 @media (max-width: 800px) {
+
+    .header--panel {
+        background-attachment: inherit;
+    }
 
     .footer {
         padding-top: 4rem;
