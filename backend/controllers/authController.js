@@ -31,6 +31,7 @@ const authController = {
       const usuario = new Usuario();
 
       const usuarioExistente = await Usuario.obtenerPorCorreo(correo);
+
       if (!usuarioExistente) {
         return res.status(400).json({ mensaje: 'El correo no existe' });
       }
@@ -41,7 +42,10 @@ const authController = {
       }
 
       const token = jwt.sign(
-        { id: usuarioExistente.id_usuario },
+        { 
+          id: usuarioExistente.id_usuario,
+          nombre: usuarioExistente.nombre
+         },
         process.env.SECRETA,
         { expiresIn: '2h' }
       );

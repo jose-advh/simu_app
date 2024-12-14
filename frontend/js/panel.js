@@ -1,11 +1,12 @@
 const velocidadScroll = 6;
+const contenidoPanel = document.getElementById('panelContenido');
+const spanNombreUsuario = document.getElementById('nombreUsuario')
 
 const verificarToken = async () => {
     const token = localStorage.getItem('token');
-     // O sessionStorage
     if (!token) {
         console.log('No se encontró token, redirigiendo a login...');
-        window.location.href = 'login.html'; // Redirigir si no hay token
+        window.location.href = 'login.html';
         return;
     }
 
@@ -18,24 +19,31 @@ const verificarToken = async () => {
         });
 
         if (!response.ok) {
-            throw new Error('Token no no válido');
+            if (response.status === 401) {
+                throw new Error('Token expirado o inválido');
+            } else {
+                throw new Error('Error en el servidor');
+            }
         }
-        // Si el token es válido, puedes continuar cargando el panel
+
+        contenidoPanel.classList.remove('ocultar');
+        const datos = jwt_decode(token); 
+        console.log('Datos del token:', datos);
+        spanNombreUsuario.innerText = datos.nombre;
+
     } catch (error) {
-        console.error(error);
-        window.location.href = 'login.html'; // Redirigir si el token no es válido
+        console.error('Error al verificar el token:', error.message);
+        alert('Sesión no válida, por favor inicia sesión nuevamente.');
+        window.location.href = 'login.html'; 
     }
-};
+}
 
 document.addEventListener('DOMContentLoaded', verificarToken);
-
-
 document.addEventListener("wheel", (event) => {
     event.preventDefault(); 
     window.scrollBy({
       top: event.deltaY * velocidadScroll, 
       left: 0,
-      behavior: "auto", 
     });
   }, { passive: false }); 
   

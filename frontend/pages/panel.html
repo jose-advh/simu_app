@@ -6,7 +6,7 @@
     <title>Simu - Panel</title>
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body>
+  <body class="ocultar" id="panelContenido">
     <header class="header--panel">
       <nav class="header__navegacion">
         <li>
@@ -34,7 +34,7 @@
             src="../imgs/icons/avatar_icon.svg"
             alt="Avatar usuario"
           />
-          <p>Hola Usuario!</p>
+          <span id="nombreUsuario"></span>!
         </article>
         <nav class="aside__nav">
           <img
@@ -62,34 +62,13 @@
         </article>
       </aside>
 
-<!-- TO-DO: HACER QUE TODO ESTÉ EN UN BOTÓN DE FILTRAR -->
-
       <article class="main__contenido">
-        <nav class="contenido__nav">
-          <ul class="contenido__lista">
-            <li class="lista__item">
-              <span>MÁTEMATICAS</span>
-            </li>
-            <li class="lista__item">
-                <span>LECTURA CRÍTICA</span>
-              </li>
-              <li class="lista__item">
-                <span>NATURALES</span>
-              </li>
-            <li class="lista__item">
-              <span>SOCIALES</span>
-            </li>
-            <li class="lista__item">
-                <span>INGLÉS</span>
-              </li>
-          </ul>
-
-          <span>Todo</span>
-        </nav>
+        
       </article>
     </main>
     <footer></footer>
+    <script type="module" src="../js/panel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 
-    <script src="../js/panel.js"></script>
   </body>
 </html>
