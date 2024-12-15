@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import authRoutes from './backend/routes/authRoutes.js'
 import preguntaRoutes from './backend/routes/preguntaRoutes.js'
 import respuestaRoutes from './backend/routes/respuestaRoutes.js'
-
+import intentoRoutes from './backend/routes/intentoRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/simu', authRoutes);
 app.use('/simu/api', preguntaRoutes);
+app.use('/simu/intento', intentoRoutes);
 app.use('/simu/intento', respuestaRoutes);
 
 const PORT = process.env.PORT || 3005;
