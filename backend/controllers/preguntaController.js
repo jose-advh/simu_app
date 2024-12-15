@@ -13,3 +13,18 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el ID de la pregunta aleatoria en controlador' });
   }
 };
+
+export const obtenerNombreMateriaPorId = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
+  try {
+    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const nombreMateria = await pregunta.obtenerNombreMateria(id); // Llamar al método de instancia
+    if (!nombreMateria) {
+      return res.status(404).json({ error: 'No se encontró la materia para la pregunta especificada' });
+    }
+    res.json({ nombreMateria }); // Enviar el nombre de la materia como respuesta
+  } catch (error) {
+    console.error('Error en el controlador:', error);
+    res.status(500).json({ error: 'Error al obtener el nombre de la materia en controlador' });
+  }
+};
