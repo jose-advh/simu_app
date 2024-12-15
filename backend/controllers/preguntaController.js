@@ -14,6 +14,12 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
   }
 };
 
+export const obtenerEnunciadoPorId = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de la pregunta desde la URL
+  try {
+    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const enunciado = await pregunta.obtenerEnunciadoPorId(id); // Ll
+
 export const obtenerOpcionesPorPreguntaId = async (req, res) => {
   const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
   try {

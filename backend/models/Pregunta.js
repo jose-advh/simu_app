@@ -50,6 +50,29 @@ class Pregunta {
       await this.db.close(); // Asegúrate de cerrar la conexión
     }
   }
+async obtenerEnunciadoPorPreguntaId(id) {
+  try {
+    await this.db.connect();
+    const sql = `
+    SELECT
+    e.enunciado AS enunciado
+    FROM
+    pregunta p
+    INNER JOIN
+    enunciado e ON p.enunciado_id = e.descripcion
+    WHERE
+    p.id_pregunta = ?;
+    `;
+    const rows = await this.db.query(sql, [id]);
+    return rows[0] ? rows[0].enunciado : null; // Retorna el
+  } catch (error) {
+    console.error("Error al obtener el enunciado", error);
+   throw new Error("Error al obtener el enunciado");
+  } finally {
+   await this.db.close();
+  }
+}
+
 
   // Método para obtener las opciones por ID de pregunta
   async obtenerOpcionesPorPreguntaId(id) {
