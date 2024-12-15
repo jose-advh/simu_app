@@ -99,7 +99,6 @@ class Pregunta {
       await this.db.connect();
       const sql = `
         SELECT 
-          o.pregunta_id AS pregunta_id,
           o.texto AS opcion_texto
         FROM 
           opcion o
