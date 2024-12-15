@@ -32,3 +32,6 @@ GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/16
 
 ### probar OPCIONES de pregunta
 GET http://localhost:3005/simu/api/pregunta/opciones/4
+
+### probar opcion correctas de pregunta
+GET http://localhost:3005/simu/api/pregunta/respuesta-correcta/2

@@ -42,12 +42,12 @@ class Pregunta {
           p.id_pregunta = ?;
       `;
       const rows = await this.db.query(sql, [id]);
-      return rows[0] ? rows[0].nombre_materia : null; // Retorna el nombre de la materia o null si no existe
+      return rows[0] ? rows[0].nombre_materia : null;
     } catch (error) {
       console.error('Error al obtener nombre de la materia:', error);
       throw new Error('Error al obtener nombre de la materia');
     } finally {
-      await this.db.close(); // Asegúrate de cerrar la conexión
+      await this.db.close(); 
     }
   }
 
@@ -57,7 +57,6 @@ class Pregunta {
       await this.db.connect();
       const sql = `
         SELECT 
-          o.pregunta_id AS pregunta_id,
           o.texto AS opcion_texto
         FROM 
           opcion o
@@ -73,6 +72,32 @@ class Pregunta {
       await this.db.close(); // Asegúrate de cerrar la conexión
     }
   }
+
+    // Método para obtener la respuesta correcta por ID de pregunta
+
+
+    async obtenerRespuestaCorrectaPorPreguntaId(id) {
+      try {
+        await this.db.connect();
+        const sql = `
+          SELECT 
+            es_correcta AS respuesta_correcta
+          FROM 
+            pregunta 
+          WHERE
+            id_pregunta = ?; 
+        `;
+        const rows = await this.db.query(sql, [id]);
+        return rows[0] || null;
+      } catch (error) {
+        console.error('Error al obtener respuesta correcta por ID de pregunta:', error);
+        throw new Error('Error al obtener respuesta correcta en modelo');
+      } finally {
+        await this.db.close();
+      }
+    }
+
 }
+
 
 export default Pregunta;

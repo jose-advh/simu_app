@@ -43,3 +43,18 @@ export const obtenerNombreMateriaPorId = async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el nombre de la materia en controlador' });
   }
 };
+
+export const obtenerRespuestaCorrectaPorPreguntaId = async (req, res) => {
+  const { id } = req.params; 
+  try {
+    const pregunta = new Pregunta(); 
+    const respuestaCorrecta = await pregunta.obtenerRespuestaCorrectaPorPreguntaId(id); 
+    if (!respuestaCorrecta) {
+      return res.status(404).json({ error: 'No se encontró la respuesta correcta para la pregunta especificada' });
+    }
+    res.json({ respuestaCorrecta }); 
+  } catch (error) {
+    console.error('Error en el controlador:', error);
+    res.status(500).json({ error: 'Error al obtener la respuesta correcta por ID de pregunta en controlador' });
+  }
+};
