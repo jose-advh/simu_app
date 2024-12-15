@@ -15,6 +15,7 @@ const intentoController = {
       return res.status(500).json({ message: 'Error al crear el intento' });
     }
   },
+  //
 
   async obtenerIntentos(req, res) {
     const { usuario_id } = req.params;

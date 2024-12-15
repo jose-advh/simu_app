@@ -17,6 +17,7 @@ class Intento {
       throw error;
     }
   }
+  //
 
   async obtenerIntentosPorUsuarioId(usuarioId) {
     try {
