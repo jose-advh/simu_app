@@ -8,6 +8,32 @@ class Intento {
 
   async crearIntento(usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral) {
     try {
+      // Validaciones
+      if (!usuarioId || !fechaInicio) {
+        throw new Error('El usuarioId y la fechaInicio son obligatorios');
+      }
+
+      // Validar fecha
+      if (isNaN(new Date(fechaInicio))) {
+        throw new Error('La fecha de inicio no es válida');
+      }
+
+      // Validar puntajes
+      const puntajes = [
+        puntuacionMatematicas,
+        puntuacionLectura,
+        puntuacionNaturales,
+        puntuacionSociales,
+        puntuacionIngles,
+        puntuacionGeneral,
+      ];
+
+      for (const puntaje of puntajes) {
+        if (puntaje < 1 || puntaje > 500) {
+          throw new Error('Los puntajes deben estar entre 1 y 500');
+        }
+      }
+
       const sql = `INSERT INTO intentos (usuario_id, fecha_inicio, hora_final, puntuacion_Matematicas, puntuacion_Lectura, puntuacion_Naturales, puntuacion_Sociales, puntuacion_Ingles, puntuacion_General) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       await this.db.connect();
       await this.db.query(sql, [usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral]);
@@ -17,7 +43,7 @@ class Intento {
       throw error;
     }
   }
-  //
+
 
   async obtenerIntentosPorUsuarioId(usuarioId) {
     try {
@@ -27,7 +53,20 @@ class Intento {
       await this.db.close();
       return intentos;
     } catch (error) {
-      console.error('Error al obtener intentos', error);
+      console.error('Error al obtener los intentos', error);
+      throw error;
+    }
+  }
+
+  async obtenerIntentoPorId(id) {
+    try {
+      const sql = `SELECT * FROM intentos WHERE id_intento = ?`; 
+      await this.db.connect();
+      const intento = await this.db.query(sql, [id]);
+      await this.db.close();
+      return intento[0] || null; 
+    } catch (error) {
+      console.error('Error al obtener intento por ID', error);
       throw error;
     }
   }
