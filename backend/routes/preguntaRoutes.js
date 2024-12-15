@@ -1,10 +1,11 @@
 import express from 'express';
-import { obtenerPreguntaAleatoriaId, obtenerNombreMateriaPorId } from '../controllers/preguntaController.js';
+import { obtenerPreguntaAleatoriaId, obtenerNombreMateriaPorId, obtenerOpcionesPorPreguntaId } from '../controllers/preguntaController.js';
 const router = express.Router();
 
 // Ruta para contar preguntas y obtener el nombre de la materia
 
 router.get('/pregunta/aleatoria', obtenerPreguntaAleatoriaId);
+router.get('/pregunta/opciones/:id', obtenerOpcionesPorPreguntaId);
 router.get('/pregunta/aleatoria-materia/:id', obtenerNombreMateriaPorId);
 // Ruta para obtener preguntas con el nombre de la materia
 

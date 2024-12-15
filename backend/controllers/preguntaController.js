@@ -14,6 +14,21 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
   }
 };
 
+export const obtenerOpcionesPorPreguntaId = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
+  try {
+    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const opciones = await pregunta.obtenerOpcionesPorPreguntaId(id); // Llamar al método de instancia
+    if (!opciones || opciones.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron opciones para la pregunta especificada' });
+    }
+    res.json({ opciones }); // Enviar las opciones como respuesta
+  } catch (error) {
+    console.error('Error en el controlador:', error);
+    res.status(500).json({ error: 'Error al obtener las opciones por ID de pregunta en controlador' });
+  }
+};
+
 export const obtenerNombreMateriaPorId = async (req, res) => {
   const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
   try {

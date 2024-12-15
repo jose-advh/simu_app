@@ -57,10 +57,10 @@ class Pregunta {
       await this.db.connect();
       const sql = `
         SELECT 
-          o.id_opcion AS opcion_id,
-          o.opcion AS opcion_texto
+          o.pregunta_id AS pregunta_id,
+          o.texto AS opcion_texto
         FROM 
-          opciones o
+          opcion o
         WHERE 
           o.pregunta_id = ?;
       `;
