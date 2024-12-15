@@ -6,7 +6,7 @@
     <title>Simu - Panel</title>
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body class="ocultar" id="panelContenido">
+  <body class="ocultar" id="panel">
     <header class="header--panel">
       <nav class="header__navegacion">
         <li>
@@ -19,7 +19,7 @@
         </li>
       </nav>
       <article class="header__texto">
-        <h2 class="header__title">SIMULACROS</h2>
+        <h2 class="header__title">PANEL</h2>
         <p class="header__description">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
           accusamus a quidem molestias ab, tempora ea rem ipsum, laudantium.
@@ -40,31 +40,104 @@
           <img
             class="aside__item active"
             src="../imgs/icons/simulacros_icon.svg"
-            alt=""
+            alt="ir a la seccion simulacros"
           />
           <img
             class="aside__item"
             src="../imgs/icons/resultados_icon.svg"
-            alt=""
+            alt="ir a la seccion resultados"
           />
           <img
             class="aside__item"
+            id="irSeccionNosotros"
             src="../imgs/icons/nosotros_icon.svg"
-            alt=""
+            alt="ir a la seccion nosotros"
           />
         </nav>
-        <article class="aside__settings">
-          <img
-            class="aside__item"
-            src="../imgs/icons/settings_icon.svg"
-            alt=""
-          />
-        </article>
       </aside>
 
-      <article class="main__contenido">
-        
-      </article>
+      <section class="ocultar" id="seccionSimulacros">
+        <article class="contenido__simulacros">
+          <section class="main__general">
+            <h2>Generales (1)</h2>
+            <section class="simulacros__row">
+              <article class="main__simulacros">
+                <img src="../imgs/simulacros/simulaco_general.png" class="simulacro__img" alt="Simulacro General">
+                <section class="simulacro__description">
+                  <h2>Simulacro General</h2>
+                  <p>
+                    10 Preguntas <br>
+                    Tiempo Ilimitado <br>
+                  </p>
+                <button class="simulacro__button simulacro_general">Realizar</button>
+                </section>
+              </article>
+            </section>
+          </section>
+  
+          <section class="main__general">
+            <h2>Materias (5)</h2>
+            <section class="simulacros__row">
+              <article class="main__simulacros">
+                <img src="../imgs/simulacros/simulacro_matematicas.png" class="simulacro__img" alt="Simulacro Matematicas">
+                <section class="simulacro__description">
+                  <h2>Simulacro Matematicas</h2>
+                  <p>
+                    10 Preguntas <br>
+                    Tiempo Ilimitado <br>
+                  </p>
+                <button class="simulacro__button simulacro_matematicas">Realizar</button>
+                </section>
+              </article>
+  
+              <article class="main__simulacros">
+                <img src="../imgs/simulacros/simulacro_naturales.png" class="simulacro__img" alt="Simulacro Matematicas">
+                <section class="simulacro__description">
+                  <h2>Simulacro Naturales</h2>
+                  <p>
+                    10 Preguntas <br>
+                    Tiempo Ilimitado <br>
+                  </p>
+                <button class="simulacro__button simulacro_naturales">Realizar</button>
+                </section>
+              </article>
+  
+              <article class="main__simulacros">
+                <img src="../imgs/simulacros/simulacro_ingles.png" class="simulacro__img" alt="Simulacro Matematicas">
+                <section class="simulacro__description">
+                  <h2>Simulacro Inglés</h2>
+                  <p>
+                    10 Preguntas <br>
+                    Tiempo Ilimitado <br>
+                  </p>
+                <button class="simulacro__button simulacro_ingles">Realizar</button>
+                </section>
+              </article>
+    
+              <article class="main__simulacros">
+                <img src="../imgs/simulacros/simulacro_lectura.png" class="simulacro__img" alt="Simulacro Matematicas">
+                <section class="simulacro__description">
+                  <h2>Simulacro Lectura Crítica </h2>
+                  <p>
+                    10 Preguntas <br>
+                    Tiempo Ilimitado <br>
+                  </p>
+                <button class="simulacro__button simulacro_lectura">Realizar</button>
+                </section>
+              </article>
+            </section>
+          </section>
+        </article>  
+      </section>
+
+
+      <section class="mostrar" id="seccionNosotros">
+
+      </section>
+
+
+
+
     </main>
     <footer></footer>
     <script type="module" src="../js/panel.js"></script>

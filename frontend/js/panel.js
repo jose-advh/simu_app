@@ -1,9 +1,22 @@
-const velocidadScroll = 6;
-const contenidoPanel = document.getElementById('panelContenido');
-const spanNombreUsuario = document.getElementById('nombreUsuario')
+const mostrarContenido = document.getElementById('panel');
+const spanNombreUsuario = document.getElementById('nombreUsuario');
+
+const contenidoSimulacros = document.getElementById('seccionSimulacros');
+const contenidoNosotros = document.getElementById('contenidoNosotros');
+const irSeccionNosotros = document.getElementById('irSeccionNosotros');
+
+const mostrarSeccionNosotros = (e) => {
+    e.preventDefault();
+    contenidoSimulacros.classList.remove('mostrar');
+    contenidoSimulacros.classList.add('ocultar');
+}
+
+irSeccionNosotros.addEventListener('click', mostrarSeccionNosotros);
 
 const verificarToken = async () => {
     const token = localStorage.getItem('token');
+    const datos = jwt_decode(token); 
+    
     if (!token) {
         console.log('No se encontró token, redirigiendo a login...');
         window.location.href = 'login.html';
@@ -26,9 +39,7 @@ const verificarToken = async () => {
             }
         }
 
-        contenidoPanel.classList.remove('ocultar');
-        const datos = jwt_decode(token); 
-        console.log('Datos del token:', datos);
+        mostrarContenido.classList.remove('ocultar');
         spanNombreUsuario.innerText = datos.nombre;
 
     } catch (error) {
@@ -39,11 +50,3 @@ const verificarToken = async () => {
 }
 
 document.addEventListener('DOMContentLoaded', verificarToken);
-document.addEventListener("wheel", (event) => {
-    event.preventDefault(); 
-    window.scrollBy({
-      top: event.deltaY * velocidadScroll, 
-      left: 0,
-    });
-  }, { passive: false }); 
-  
