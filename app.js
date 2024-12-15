@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/simu', authRoutes);
-app.use('/api', preguntaRoutes);
+app.use('/simu/api', preguntaRoutes);
 
 const PORT = process.env.PORT || 3005;
 app.listen(3005, () => {

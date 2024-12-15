@@ -20,8 +20,8 @@ class Pregunta {
       const rows = await this.db.query(sql);
       return rows[0] || null; // Retorna la pregunta aleatoria o null si no existe
     } catch (error) {
-      console.error('Error al obtener pregunta aleatoria:', error);
-      throw new Error('Error al obtener pregunta aleatoria');
+      console.error('Error al obtener pregunta aleatoria: en modelo', error);
+      throw new Error('Error al obtener pregunta aleatoria en modelo');
     } finally {
       await this.db.close(); // Asegúrate de cerrar la conexión
     }

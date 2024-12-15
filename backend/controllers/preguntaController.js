@@ -9,6 +9,6 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
     res.json({ preguntaId }); // Enviar el ID de la pregunta aleatoria como respuesta
   } catch (error) {
     console.error('Error en el controlador:', error);
-    res.status(500).json({ error: 'Error al obtener el ID de la pregunta aleatoria' });
+    res.status(500).json({ error: 'Error al obtener el ID de la pregunta aleatoria en controlador' });
   }
 }; 
