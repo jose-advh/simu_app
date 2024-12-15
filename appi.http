@@ -41,3 +41,16 @@ GET http://localhost:3005/simu/api/pregunta/opciones/46
 
 ### Probar respuesta correcta de pregunta
 GET http://localhost:3005/simu/api/pregunta/escorrecta/46
+
+
+###POST para respuesta de usuario
+POST http://localhost:3005/simu/intento/respuesta/usuario
+Content-Type: application/json
+
+{
+  "id": 1,
+  "intento": 1,
+  "pregunta": 46,
+  "opcion_seleccionada": "opcion",
+  "puntos": 10
+}
