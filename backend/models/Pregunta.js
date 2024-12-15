@@ -5,7 +5,6 @@ class Pregunta {
     this.db = new Database(); // Crear una nueva instancia de Database
   }
 
-  // Método para obtener una pregunta aleatoria
   async obtenerPreguntaAleatoria() {
     try {
       await this.db.connect();
@@ -27,7 +26,6 @@ class Pregunta {
     }
   }
 
-  // Método para obtener el nombre de la materia por ID de pregunta
   async obtenerNombreMateria(id) {
     try {
       await this.db.connect();
@@ -42,16 +40,60 @@ class Pregunta {
           p.id_pregunta = ?;
       `;
       const rows = await this.db.query(sql, [id]);
-      return rows[0] ? rows[0].nombre_materia : null;
+      return rows[0] ? rows[0].nombre_materia : null; // Retorna el nombre de la materia o null si no existe
     } catch (error) {
       console.error('Error al obtener nombre de la materia:', error);
       throw new Error('Error al obtener nombre de la materia');
     } finally {
-      await this.db.close(); 
+      await this.db.close(); // Asegúrate de cerrar la conexión
     }
   }
 
-  // Método para obtener las opciones por ID de pregunta
+  async obtenerEnunciadoPorId(id) {
+    try {
+      await this.db.connect();
+      const sql = `
+      SELECT
+      e.descripcion AS enunciado_descripcion
+      FROM
+      pregunta p
+      INNER JOIN
+      enunciado e ON p.enunciado_id = e.id_enunciado
+      WHERE
+      p.id_pregunta = ?;
+      `;
+      const rows = await this.db.query(sql, [id]);
+      
+      return rows[0] ? rows[0].enunciado_descripcion : null; // Retorna el
+    } catch (error) {
+      console.error("Error al obtener el enunciado", error);
+      throw new Error("Error al obtener el enunciado");
+    } finally {
+      await this.db.close();
+    }
+  }
+
+  async obtenerDetallePreguntaPorId(id) {
+    try {
+      await this.db.connect();
+      const sql = `
+      SELECT
+      p.pregunta AS pregunta_detalle
+      FROM
+      pregunta p
+      WHERE
+      p.id_pregunta = ?;
+    `;
+    const rows = await this.db.query(sql, [id]);
+    return rows[0] ? rows[0].pregunta_detalle : null;
+  } catch (error) {
+    console.error("Error al obtener el detalle de la pregunta", error);
+    throw new Error("Error al obtener el detalle de la pregunta");
+  } finally {
+    await this.db.close();
+  }
+}
+
   async obtenerOpcionesPorPreguntaId(id) {
     try {
       await this.db.connect();
@@ -73,29 +115,26 @@ class Pregunta {
     }
   }
 
-    // Método para obtener la respuesta correcta por ID de pregunta
-
-
-    async obtenerRespuestaCorrectaPorPreguntaId(id) {
-      try {
-        await this.db.connect();
-        const sql = `
-          SELECT 
-            es_correcta AS respuesta_correcta
-          FROM 
-            pregunta 
-          WHERE
-            id_pregunta = ?; 
-        `;
-        const rows = await this.db.query(sql, [id]);
-        return rows[0] || null;
-      } catch (error) {
-        console.error('Error al obtener respuesta correcta por ID de pregunta:', error);
-        throw new Error('Error al obtener respuesta correcta en modelo');
-      } finally {
-        await this.db.close();
-      }
+  async obtenerEsCorrectaPorId(id) {
+    try {
+      await this.db.connect();
+      const sql = `
+      SELECT
+      p.es_correcta AS es_correcta
+      FROM
+      pregunta p
+      WHERE
+      p.id_pregunta = ?;
+    `;
+    const rows = await this.db.query(sql, [id]);
+    return rows[0] ? rows[0].es_correcta : null; // Retorna la
+    } catch (error) {
+      console.error("Error al obtener la respuesta correcta", error);
+      throw new Error("Error al obtener la respuesta correcta");
+    } finally {
+      await this.db.close();
     }
+  }
 
 }
 

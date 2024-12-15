@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import authRoutes from './backend/routes/authRoutes.js'
 import preguntaRoutes from './backend/routes/preguntaRoutes.js'
+import respuestaRoutes from './backend/routes/respuestaRoutes.js'
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/simu', authRoutes);
 app.use('/simu/api', preguntaRoutes);
+app.use('/simu/intento', respuestaRoutes);
 
 const PORT = process.env.PORT || 3005;
 app.listen(3005, () => {
