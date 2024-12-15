@@ -11,7 +11,7 @@ class Pregunta {
       await this.db.connect();
       const sql = `
         SELECT 
-          p.id_pregunta AS pregunta_id,
+          p.id_pregunta AS pregunta_id
         FROM 
           pregunta p
         ORDER BY RAND()
