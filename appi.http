@@ -28,7 +28,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6M
 GET http://localhost:3005/simu/api/pregunta/aleatoria
 
 ### probar nombre de materia pregunta
-GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/16
+GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/46
+
+### probar enunciado de pregunta
+GET http://localhost:3005/simu/api/pregunta/enunciado/46
+
+###probar detalle de la pregunta
+GET http://localhost:3005/simu/api/pregunta/detalle/46
 
 ### probar OPCIONES de pregunta
-GET http://localhost:3005/simu/api/pregunta/opciones/4
+GET http://localhost:3005/simu/api/pregunta/opciones/46
+
+### Probar respuesta correcta de pregunta
+GET http://localhost:3005/simu/api/pregunta/escorrecta/46
