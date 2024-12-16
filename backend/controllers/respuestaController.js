@@ -22,6 +22,39 @@ const respuestaController = {
       }
     }
   },
+
+  async obtenerRespuestaPorId(req, res) {
+    const { id } = req.params; 
+    try {
+      const respuesta = new Respuesta(); 
+      const resultado = await respuesta.obtenerRespuestaPorId(id); 
+
+      if (!resultado) {
+        return res.status(404).json({ message: 'No se encontró respuesta con este ID' });
+      }
+
+      res.json({ respuesta: resultado }); 
+    } catch (error) {
+      console.error('Error al obtener la respuesta:', error);
+      res.status(500).json({ message: 'Error al obtener la respuesta' });
+    }
+  },
+
+  async obtenerRespuestasPorIntento(req, res) {
+    const { idIntento } = req.params;
+    try {
+      const respuesta = new Respuesta();
+      const resultado = await respuesta.obtenerRespuestaPorIntento(idIntento);
+
+      if (!resultado) {
+        return res.status(404).json({ message: 'No se encontró la respuesta del intento' });
+      }
+
+      res.json({ respuesta: resultado })
+    } catch (error) {
+      console.error('Error al obtener las respuestas:', error);
+    }
+  }
 };
 
 export default respuestaController;
