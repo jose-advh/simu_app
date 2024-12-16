@@ -1,17 +1,44 @@
 const mostrarContenido = document.getElementById('panel');
+const mainAside = document.getElementById('mainAside');
 const spanNombreUsuario = document.getElementById('nombreUsuario');
 
 const contenidoSimulacros = document.getElementById('seccionSimulacros');
-const contenidoNosotros = document.getElementById('contenidoNosotros');
+const contenidoNosotros = document.getElementById('seccionNosotros');
 const irSeccionNosotros = document.getElementById('irSeccionNosotros');
+const irSeccionSimulacros = document.getElementById('irSeccionSimulacros');
 
 const mostrarSeccionNosotros = (e) => {
     e.preventDefault();
-    contenidoSimulacros.classList.remove('mostrar');
     contenidoSimulacros.classList.add('ocultar');
+    contenidoNosotros.classList.remove('ocultar');
+}
+
+const mostrarSeccionSimulacros = (e) => {
+    e.preventDefault();
+    contenidoNosotros.classList.add('ocultar');
+    contenidoSimulacros.classList.remove('ocultar');
+}
+
+const asideFixed = () => {
+    const scrollPosition = window.scrollY;
+    const threshold = window.innerHeight * 0.5;
+
+    if (scrollPosition > threshold) {
+        mainAside.classList.add('fixed')
+    } else {
+        mainAside.classList.remove('fixed');
+    }
 }
 
 irSeccionNosotros.addEventListener('click', mostrarSeccionNosotros);
+irSeccionSimulacros.addEventListener('click', mostrarSeccionSimulacros);
+
+window.addEventListener('scroll', asideFixed);
+
+
+
+
+
 
 const verificarToken = async () => {
     const token = localStorage.getItem('token');
