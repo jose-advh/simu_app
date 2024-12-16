@@ -105,6 +105,7 @@
     color: black;
     padding: .7rem;
     width: 184px;
+    cursor: pointer;
     border-radius: var(--border-cards);
     transition: .5s;
 }

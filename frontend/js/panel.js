@@ -1,11 +1,11 @@
 const mostrarContenido = document.getElementById('panel');
-const mainAside = document.getElementById('mainAside');
 const spanNombreUsuario = document.getElementById('nombreUsuario');
-
 const contenidoSimulacros = document.getElementById('seccionSimulacros');
 const contenidoNosotros = document.getElementById('seccionNosotros');
 const irSeccionNosotros = document.getElementById('irSeccionNosotros');
 const irSeccionSimulacros = document.getElementById('irSeccionSimulacros');
+const botonCerrarSesion = document.getElementById('cerrarSesion');
+let timeout;
 
 const mostrarSeccionNosotros = (e) => {
     e.preventDefault();
@@ -19,19 +19,40 @@ const mostrarSeccionSimulacros = (e) => {
     contenidoSimulacros.classList.remove('ocultar');
 }
 
+const cerrarSesion = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+}
+
+const mainAside = document.getElementById('mainAside'); 
+let placeholder = null; 
+
 const asideFixed = () => {
     const scrollPosition = window.scrollY;
     const threshold = window.innerHeight * 0.5;
 
     if (scrollPosition > threshold) {
-        mainAside.classList.add('fixed')
+        if (!placeholder) {
+            placeholder = document.createElement('div');
+            placeholder.style.height = `${mainAside.offsetHeight}px`; 
+            mainAside.parentNode.insertBefore(placeholder, mainAside);
+        }
+        mainAside.classList.add('fixed'); 
     } else {
-        mainAside.classList.remove('fixed');
+        if (placeholder) {
+            placeholder.remove();
+            placeholder = null;
+        }
+        mainAside.classList.remove('fixed'); 
     }
-}
+};
+
+window.addEventListener('scroll', asideFixed);
 
 irSeccionNosotros.addEventListener('click', mostrarSeccionNosotros);
 irSeccionSimulacros.addEventListener('click', mostrarSeccionSimulacros);
+botonCerrarSesion.addEventListener('click', cerrarSesion);
 
 window.addEventListener('scroll', asideFixed);
 
@@ -71,7 +92,6 @@ const verificarToken = async () => {
 
     } catch (error) {
         console.error('Error al verificar el token:', error.message);
-        alert('Sesión no válida, por favor inicia sesión nuevamente.');
         window.location.href = 'login.html'; 
     }
 }
