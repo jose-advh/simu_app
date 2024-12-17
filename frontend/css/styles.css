@@ -746,6 +746,34 @@ hr {
     font-size: 1rem;
 }
 
+/* PLANTILLA */
+
+.nav__list {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border: 1px solid;
+}
+
+.main--plantilla {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main__enunciado {
+    padding: .5rem;
+    max-width: 90%;
+    max-height: 50vh;
+    border: 1px solid;
+    overflow: auto;
+}
+
+.main__opciones {
+    
+}
+
 
 @media (max-width: 320px) {
     .header__item-title {
