@@ -3,7 +3,7 @@ import Intento from '../models/Intento.js';
 const intentoController = {
     async crearIntento(req, res) {
         const { usuario_id, fecha_inicio, puntuaciones } = req.body;
-        const hora_final = new Date();
+        const hora_final = null;
 
         if (!usuario_id || !fecha_inicio) {
             return res.status(400).json({ message: 'El usuario_id y la fecha_inicio son obligatorios' });
@@ -28,7 +28,7 @@ const intentoController = {
             }
         }
         for (const puntaje of puntajes) {
-            if (puntaje < 1 || puntaje > 500) {
+            if (puntaje < 0 || puntaje > 500) {
                 return res.status(400).json({ message: 'Los puntajes deben estar entre 1 y 500' });
             }
         }
@@ -89,8 +89,7 @@ const intentoController = {
     
     async editarIntento(req, res) {
         const { id } = req.params; 
-        const { usuario_id, fecha_inicio, puntuaciones } = req.body; 
-        const hora_final = new Date(); 
+        const { usuario_id, fecha_inicio, hora_final, puntuaciones } = req.body; 
 
         if (!usuario_id || !fecha_inicio) {
             return res.status(400).json({ message: 'El usuario_id y la fecha_inicio son obligatorios' });

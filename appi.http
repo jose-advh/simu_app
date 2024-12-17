@@ -75,13 +75,14 @@ Content-Type: application/json
 {
     "usuario_id": 9,
     "fecha_inicio": "2023-10-02T10:00:00Z",
-    "hora_final": "2023-10-02T11:00:00Z",
+    "hora_final": null,
     "puntuaciones": {
-        "matematicas": 120,
-        "lectura": 160,
-        "naturales": 220,
-        "sociales": 270,
-        "ingles": 320,
-        "general": 420
+        "matematicas": 3,
+        "lectura": 3,
+        "naturales": 0,
+        "sociales": 0,
+        "ingles": 0,
+        "general": 0
     }
 }
+
