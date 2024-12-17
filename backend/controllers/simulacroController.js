@@ -1,5 +1,6 @@
 import axios from 'axios';
 import intentoController from '../controllers/intentoController.js';
+import respuestaController from '../controllers/respuestaController.js';
 
 const API_BASE_URL = 'http://localhost:3005/simu/api';
 
@@ -112,7 +113,7 @@ const simulacroController = {
                     intento: intentoId,
                     pregunta: preguntaId,
                     opcion_seleccionada: opcionSeleccionada,
-                    puntos: 0 // Inicialmente, los puntos se establecerán en 0
+                    puntos: 1 // Inicialmente, los puntos se establecerán en 0
                 }
             };
 
