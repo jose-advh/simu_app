@@ -19,11 +19,29 @@ const mostrarSeccionSimulacros = (e) => {
     contenidoSimulacros.classList.remove('ocultar');
 }
 
-const cerrarSesion = (e) => {
+const confirmarCerrarSesion = (e) => {
     e.preventDefault();
+    Swal.fire({
+        title: '¿Estás seguro de cerrar sesión?',
+        text: 'No podrás acceder a tu cuenta hasta que vuelvas a iniciar sesión',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cerrarSesion();
+        }
+    })
+}
+
+function cerrarSesion() {
     localStorage.removeItem('token');
     window.location.href = 'login.html';
 }
+
 
 const mainAside = document.getElementById('mainAside'); 
 let placeholder = null; 
@@ -52,7 +70,7 @@ window.addEventListener('scroll', asideFixed);
 
 irSeccionNosotros.addEventListener('click', mostrarSeccionNosotros);
 irSeccionSimulacros.addEventListener('click', mostrarSeccionSimulacros);
-botonCerrarSesion.addEventListener('click', cerrarSesion);
+botonCerrarSesion.addEventListener('click', confirmarCerrarSesion);
 
 window.addEventListener('scroll', asideFixed);
 
