@@ -29,7 +29,7 @@ class Intento {
       ];
 
       for (const puntaje of puntajes) {
-        if (puntaje < 1 || puntaje > 500) {
+        if (puntaje < 0 || puntaje > 500) {
           throw new Error('Los puntajes deben estar entre 1 y 500');
         }
       }

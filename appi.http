@@ -64,9 +64,4 @@ GET http://localhost:3005/simu/api/respuesta/intento/1
 
 
 ### api para probar el simulacro
-POST http://localhost:3005/simu/api/simulacro/generar
-Content-Type: application/json
-
-{
-  "usuarioId": 9
-}
+GET http://localhost:3005/simu/api/simulacro/generar

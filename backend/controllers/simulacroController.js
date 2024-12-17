@@ -11,10 +11,8 @@ const simulacroController = {
 
       while (preguntasSeleccionadas.length < totalPreguntas) {
         const response = await axios.get(`${API_BASE_URL}/pregunta/aleatoria`);
-        console.log(response.data);
         
         const preguntaId = response.data.preguntaId.pregunta_id;
-        console.log('ID de la pregunta', preguntaId);
         
 
         if(!preguntaId) return res.status(404).send({ message: 'No hay preguntas disponibles' });
@@ -46,27 +44,7 @@ const simulacroController = {
         }
       }
 
-      const usuarioId = req.body.usuarioId;
-      const hora_final = null;
-      const puntuacion_matematicas = 0;
-      const puntuacion_sociales = 0;
-      const puntuacion_ingles = 0;
-      const puntuacion_lectura = 0;
-      const puntuacion_naturales = 0;
-      const puntuacion_general = 0;
-
-      const intentoResponse = await axios.post(`${API_BASE_URL}/intento`, {
-        usuarioId: usuarioId,
-        fechaInicio: new Date(),
-        horaFinal: hora_final,
-        puntuacionMatematicas: puntuacion_matematicas,
-        puntuacionLectura: puntuacion_lectura,
-        puntuacionNaturales: puntuacion_naturales,
-        puntuacionSociales: puntuacion_sociales,
-        puntuacionIngles: puntuacion_ingles,
-        puntuacionGeneral: puntuacion_general
-      });
-
+     res.status(200).json(preguntasSeleccionadas);
 
     } catch (error) {
       console.error('Error al generar el simulacro general', error);
