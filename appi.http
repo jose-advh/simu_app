@@ -67,6 +67,23 @@ GET http://localhost:3005/simu/api/respuesta/intento/1
 ### api para probar el simulacro
 GET http://localhost:3005/simu/api/simulacro/generar/9
 
+### api para crear un intento
+POST http://localhost:3005/simu/api/intento
+Content-Type: application/json
+
+{
+    "usuario_id": 9,
+    "fecha_inicio": "2023-10-01T10:00:00Z",
+    "puntuaciones": {
+        "matematicas": 450,
+        "lectura": 400,
+        "naturales": 350,
+        "sociales": 300,
+        "ingles": 250,
+        "general": 400
+    }
+}
+
 
 ### api para editar un intento
 POST http://localhost:3005/simu/api/intento/editar/1
