@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acordeón con opciones</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+    /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.acordeon {
+  width: 300px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* Botón principal */
+.acordeon__boton {
+  width: 100%;
+  padding: 10px;
+  background-color: #d9d9d9;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.acordeon__boton:hover {
+  background-color: #bfbfbf;
+}
+
+.acordeon__contenido {
+  display: none; /* Oculto por defecto */
+  padding: 10px;
+  background: #f0f0f0;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.opcion input {
+  margin-right: 10px;
+}
+
+    </style>
+  <section class="acordeon">
+    <!-- Botón principal -->
+    <button class="acordeon__boton">VER PREGUNTA ▼</button>
+    <div class="acordeon__contenido">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cum ab atque magnam dolores libero dolorum rerum, quaerat sapiente nihil sint est impedit repellat in deleniti provident consectetur magni suscipit.
+      </div>
+    </div>
+  </section>
+  <script>
+    // Seleccionamos el botón y el contenido
+const boton = document.querySelector('.acordeon__boton');
+const contenido = document.querySelector('.acordeon__contenido');
+
+// Evento para mostrar u ocultar el contenido
+boton.addEventListener('click', () => {
+  if (contenido.style.display === 'block') {
+    contenido.style.display = 'none';
+    boton.textContent = 'VER PREGUNTA ▼';
+  } else {
+    contenido.style.display = 'block';
+    boton.textContent = 'OCULTAR PREGUNTA ▲';
+  }
+});
+
+  </script>
+</body>
+</html>

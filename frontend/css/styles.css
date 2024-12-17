@@ -751,7 +751,7 @@ hr {
 .nav__list {
     display: flex;
     justify-content: space-between;
-    padding-top: 1rem;
+    padding: 1.5rem;
     border: 1px solid;
 }
 
@@ -765,13 +765,26 @@ hr {
 .main__enunciado {
     padding: .5rem;
     max-width: 90%;
-    max-height: 50vh;
+    max-height: 40vh;
     border: 1px solid;
     overflow: auto;
 }
 
+.main__pregunta {
+    border: 1px solid;
+}
+
+.pregunta__button {
+    padding: 1rem 7rem;
+    width: 100%;
+}
+
+.pregunta__contenido {
+    display: block;
+}
+
 .main__opciones {
-    
+
 }
 
 
