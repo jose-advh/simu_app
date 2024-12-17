@@ -23,6 +23,11 @@ const intentoController = {
         ];
 
         for (const puntaje of puntajes) {
+            if (puntaje < 0 || puntaje > 500) {
+                return res.status(400).json({ message: 'Los puntajes deben estar entre 1 y 500' });
+            }
+        }
+        for (const puntaje of puntajes) {
             if (puntaje < 1 || puntaje > 500) {
                 return res.status(400).json({ message: 'Los puntajes deben estar entre 1 y 500' });
             }
