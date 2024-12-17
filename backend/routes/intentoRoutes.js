@@ -7,5 +7,5 @@ router.get('/intentos', intentoController.obtenerTodosLosIntentos);
 router.post('/intento', intentoController.crearIntento);
 router.get('/intentos/:usuario_id', intentoController.obtenerIntentosPorUsuario);
 router.get('/intento/:id', intentoController.obtenerIntentoPorId);
-router.put('/intento/:id', intentoController.editarIntento);
+router.post('/intento/editar/:id', intentoController.editarIntento);
 export default router;

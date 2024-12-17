@@ -84,12 +84,30 @@ class Intento {
     }
     async editarIntentoPorId(id, usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral) {
         try {
+            const usuarioExists = await this.validarUsuario(usuarioId);
+            if (!usuarioExists) {
+                throw new Error('El usuario no existe');
+            }
+    
             const sql = `UPDATE intento SET usuario_id = ?, fecha_inicio = ?, hora_final = ?, puntuacion_Matematicas = ?, puntuacion_Lectura = ?, puntuacion_Naturales = ?, puntuacion_Sociales = ?, puntuacion_Ingles = ?, puntuacion_General = ? WHERE id_intento = ?`;
             await this.db.connect();
             await this.db.query(sql, [usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral, id]);
             await this.db.close();
         } catch (error) {
             console.error('Error al editar el intento', error);
+            throw error;
+        }
+    }
+    
+    async validarUsuario(usuarioId) {
+        try {
+            const sql = `SELECT COUNT(*) as count FROM usuario WHERE id_usuario = ?`;
+            await this.db.connect();
+            const result = await this.db.query(sql, [usuarioId]);
+            await this.db.close();
+            return result[0].count > 0; 
+        } catch (error) {
+            console.error('Error al validar el usuario', error);
             throw error;
         }
     }
