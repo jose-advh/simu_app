@@ -74,12 +74,12 @@ class Intento {
             const sql = `SELECT * FROM intento ORDER BY id_intento DESC`;
             await this.db.connect();
             const intentos = await this.db.query(sql);
-            return intentos || null; // Cambiado para devolver null si no hay intentos
+            return intentos || null; 
         } catch (error) {
             console.error('No se pudo buscar el último intento', error);
             throw new Error('No se pudo buscar el último intento');
         } finally {
-            await this.db.close(); // Asegurarse de cerrar la conexión en el finally
+            await this.db.close(); 
         }
     }
     async editarIntentoPorId(id, usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral) {

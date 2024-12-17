@@ -58,6 +58,7 @@ Content-Type: application/json
   "puntos": 10
 }
 
+
 ###GET para respuesta usuario por intento (ID)
 GET http://localhost:3005/simu/api/respuesta/intento/1
 
@@ -65,3 +66,22 @@ GET http://localhost:3005/simu/api/respuesta/intento/1
 
 ### api para probar el simulacro
 GET http://localhost:3005/simu/api/simulacro/generar
+
+
+### api para editar un intento
+PUT http://localhost:3005/simu/api/intento/1
+Content-Type: application/json
+
+{
+    "usuario_id": 1,
+    "fecha_inicio": "2023-10-02T10:00:00Z",
+    "hora_final": "2023-10-02T11:00:00Z",
+    "puntuaciones": {
+        "matematicas": 120,
+        "lectura": 160,
+        "naturales": 220,
+        "sociales": 270,
+        "ingles": 320,
+        "general": 420
+    }
+}

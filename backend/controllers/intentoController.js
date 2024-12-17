@@ -86,47 +86,11 @@ const intentoController = {
             return res.status(500).json({ message: 'Error al obtener todos los intentos' });
         }
     },
+    
     async editarIntento(req, res) {
-        const { id } = req.params; // Obtener el ID del intento desde los parámetros de la solicitud
-        const { usuario_id, fecha_inicio, puntuaciones } = req.body; // Obtener los datos del cuerpo de la solicitud
-        const hora_final = new Date(); // Establecer la hora final como la fecha actual
-
-        if (!usuario_id || !fecha_inicio) {
-            return res.status(400).json({ message: 'El usuario_id y la fecha_inicio son obligatorios' });
-        }
-
-        if (isNaN(new Date(fecha_inicio))) {
-            return res.status(400).json({ message: 'La fecha de inicio no es válida' });
-        }
-
-        const puntajes = [
-            puntuaciones.matematicas,
-            puntuaciones.lectura,
-            puntuaciones.naturales,
-            puntuaciones.sociales,
-            puntuaciones.ingles,
-            puntuaciones.general,
-        ];
-
-        for (const puntaje of puntajes) {
-            if (puntaje < 0 || puntaje > 500) {
-                return res.status(400).json({ message: 'Los puntajes deben estar entre 0 y 500' });
-            }
-        }
-
-        try {
-            const intento = new Intento();
-            await intento.editarIntentoPorId(id, usuario_id, fecha_inicio, hora_final, puntuaciones.matematicas, puntuaciones.lectura, puntuaciones.naturales, puntuaciones.sociales, puntuaciones.ingles, puntuaciones.general);
-            return res.status(200).json({ message: 'Intento editado con éxito' });
-        } catch (error) {
-            console.error('Error al editar el intento:', error);
-            return res.status(500).json({ message: 'Error al editar el intento' });
-        }
-    },
-    async editarIntento(req, res) {
-        const { id } = req.params; // Obtener el ID del intento desde los parámetros de la solicitud
-        const { usuario_id, fecha_inicio, puntuaciones } = req.body; // Obtener los datos del cuerpo de la solicitud
-        const hora_final = new Date(); // Establecer la hora final como la fecha actual
+        const { id } = req.params; 
+        const { usuario_id, fecha_inicio, puntuaciones } = req.body; 
+        const hora_final = new Date(); 
 
         if (!usuario_id || !fecha_inicio) {
             return res.status(400).json({ message: 'El usuario_id y la fecha_inicio son obligatorios' });
