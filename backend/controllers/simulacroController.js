@@ -6,6 +6,7 @@ const API_BASE_URL = 'http://localhost:3005/simu/api';
 const simulacroController = {
   async generarSimulacro(req, res) {
     try {
+      const usuario_id = req.params.id;
       const preguntasSeleccionadas = [];
       const materiasContadas = {};
       const totalPreguntas = 10;
@@ -45,7 +46,6 @@ const simulacroController = {
         }
       }
 
-      const { usuario_id } = req.body;
       const fechaInicio = new Date();
 
       const intentoReq = {
@@ -53,12 +53,12 @@ const simulacroController = {
           usuario_id,
           fecha_inicio: fechaInicio,
           puntuaciones: {
-            matematicas: 0,
-            lectura: 0,
-            naturales: 0,
-            sociales: 0,
-            ingles: 0,
-            general: 0,
+            matematicas: null,
+            lectura: null,
+            naturales: null,
+            sociales: null,
+            ingles: null,
+            general: null,
           },
         }
       };
@@ -83,7 +83,7 @@ const simulacroController = {
 
     async enviarRespuestas(req, res) {
     try {
-      const { usuarioId, intentoId, respuestas } = req.body; // respuestas es un array de objetos con { preguntaId, respuesta }
+      const { usuario_id, intentoId, respuestas } = req.body; // respuestas es un array de objetos con { preguntaId, respuesta }
       
       // Aquí deberías obtener las preguntas del intento
       const preguntasResponse = await axios.get(`${API_BASE_URL}/intento/${intentoId}/preguntas`);

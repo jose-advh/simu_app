@@ -36,7 +36,6 @@ const intentoController = {
         try {
             const intento = new Intento();
             await intento.crearIntento(usuario_id, fecha_inicio, hora_final, puntuaciones.matematicas, puntuaciones.lectura, puntuaciones.naturales, puntuaciones.sociales, puntuaciones.ingles, puntuaciones.general);
-            return res.status(201).json({ message: 'Intento creado con éxito' });
         } catch (error) {
             console.error('Error al generar el intento:', error);
             return res.status(500).json({ message: 'Error al crear el intento' });

@@ -65,7 +65,7 @@ GET http://localhost:3005/simu/api/respuesta/intento/1
 
 
 ### api para probar el simulacro
-GET http://localhost:3005/simu/api/simulacro/generar
+GET http://localhost:3005/simu/api/simulacro/generar/9
 
 
 ### api para editar un intento
