@@ -34,7 +34,7 @@ class Intento {
         }
       }
 
-      const sql = `INSERT INTO intentos (usuario_id, fecha_inicio, hora_final, puntuacion_Matematicas, puntuacion_Lectura, puntuacion_Naturales, puntuacion_Sociales, puntuacion_Ingles, puntuacion_General) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      const sql = `INSERT INTO intento (usuario_id, fecha_inicio, hora_final, puntuacion_Matematicas, puntuacion_Lectura, puntuacion_Naturales, puntuacion_Sociales, puntuacion_Ingles, puntuacion_General) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       await this.db.connect();
       await this.db.query(sql, [usuarioId, fechaInicio, horaFinal, puntuacionMatematicas, puntuacionLectura, puntuacionNaturales, puntuacionSociales, puntuacionIngles, puntuacionGeneral]);
       await this.db.close();
@@ -47,7 +47,7 @@ class Intento {
 
   async obtenerIntentosPorUsuarioId(usuarioId) {
     try {
-      const sql = `SELECT * FROM intentos WHERE usuario_id = ? ORDER BY fecha_inicio DESC`;
+      const sql = `SELECT * FROM intento WHERE usuario_id = ? ORDER BY fecha_inicio DESC`;
       await this.db.connect();
       const intentos = await this.db.query(sql, [usuarioId]);
       await this.db.close();
@@ -60,7 +60,7 @@ class Intento {
 
   async obtenerIntentoPorId(id) {
     try {
-      const sql = `SELECT * FROM intentos WHERE id_intento = ?`; 
+      const sql = `SELECT * FROM intento WHERE id_intento = ?`; 
       await this.db.connect();
       const intento = await this.db.query(sql, [id]);
       await this.db.close();
@@ -79,7 +79,7 @@ class Intento {
       return intentos[0] || null;
     } catch (error) {
       console.error('No se pudo buscar el ultimo intento', error);
-      throw new error('No sse pudo buscar el ultimo intento');      
+      throw new Error('No sse pudo buscar el ultimo intento');      
     } finally {
       this.db.close();
     }

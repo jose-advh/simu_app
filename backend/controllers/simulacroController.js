@@ -1,4 +1,5 @@
 import axios from 'axios';
+import intentoController from '../controllers/intentoController.js';
 
 const API_BASE_URL = 'http://localhost:3005/simu/api';
 
@@ -44,6 +45,34 @@ const simulacroController = {
         }
       }
 
+      const { usuario_id } = req.body;
+      const fechaInicio = new Date();
+
+      const intentoReq = {
+        body: {
+          usuario_id,
+          fecha_inicio: fechaInicio,
+          puntuaciones: {
+            matematicas: 0,
+            lectura: 0,
+            naturales: 0,
+            sociales: 0,
+            ingles: 0,
+            general: 0,
+          },
+        }
+      };
+      const intentoRes = {
+        status: (statusCode) => ({
+          json: (data) => {
+            console.log('intento creado: ', data);
+          }
+        }),
+      };
+
+      await intentoController.crearIntento(intentoReq, intentoRes);
+
+
      res.status(200).json(preguntasSeleccionadas);
 
     } catch (error) {
@@ -74,6 +103,8 @@ const simulacroController = {
       await axios.put(`${API_BASE_URL}/intento/${intentoId}`, {
         puntuacionGeneral: puntuacion,
         horaFinal: new Date() // Establecer la hora final
+
+          
       });
 
       res.status(200).json({ puntuacion });

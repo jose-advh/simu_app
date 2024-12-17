@@ -57,7 +57,7 @@ Content-Type: application/json
   "opcion_seleccionada": "opcion",
   "puntos": 10
 }
-
+ 
 ###GET para respuesta usuario por intento (ID)
 GET http://localhost:3005/simu/api/respuesta/intento/1
 
