@@ -22,3 +22,83 @@ Content-Type: application/json
 ### Validar token
 GET http://localhost:3005/simu/auth/validar-token
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTczNDEzMDIwMiwiZXhwIjoxNzM0MTM3NDAyfQ.Jmif66O72C-eUVfKWrKPYroU_4fcxm3o5IWXThgiOYE
+
+
+### Probar pregunta aleatoria
+GET http://localhost:3005/simu/api/pregunta/aleatoria
+
+### probar nombre de materia pregunta
+GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/46
+
+### probar enunciado de pregunta
+GET http://localhost:3005/simu/api/pregunta/enunciado/46
+
+###probar detalle de la pregunta
+GET http://localhost:3005/simu/api/pregunta/detalle/46
+
+### probar OPCIONES de pregunta
+GET http://localhost:3005/simu/api/pregunta/opciones/46
+
+### Probar respuesta correcta de pregunta
+GET http://localhost:3005/simu/api/pregunta/escorrecta/46
+
+
+### Consultar todos los intentos
+GET http://localhost:3005/simu/api/intentos
+
+###POST para respuesta de usuario
+POST http://localhost:3005/simu/intento/respuesta/usuario
+Content-Type: application/json
+
+{
+  "id": 1,
+  "intento": 1,
+  "pregunta": 46,
+  "opcion_seleccionada": "opcion",
+  "puntos": 10
+}
+
+
+###GET para respuesta usuario por intento (ID)
+GET http://localhost:3005/simu/api/respuesta/intento/1
+
+
+
+### api para probar el simulacro
+GET http://localhost:3005/simu/api/simulacro/generar
+
+### api para crear un intento
+POST http://localhost:3005/simu/api/intento
+Content-Type: application/json
+
+{
+    "usuario_id": 9,
+    "fecha_inicio": "2023-10-01T10:00:00Z",
+    "puntuaciones": {
+        "matematicas": 450,
+        "lectura": 400,
+        "naturales": 350,
+        "sociales": 300,
+        "ingles": 250,
+        "general": 400
+    }
+}
+
+
+### api para editar un intento
+POST http://localhost:3005/simu/api/intento/editar/1
+Content-Type: application/json
+
+{
+    "usuario_id": 9,
+    "fecha_inicio": "2023-10-02T10:00:00Z",
+    "hora_final": "2023-10-02T11:00:00Z",
+    "puntuaciones": {
+        "matematicas": 120,
+        "lectura": 160,
+        "naturales": 220,
+        "sociales": 270,
+        "ingles": 320,
+        "general": 420
+    }
+}
