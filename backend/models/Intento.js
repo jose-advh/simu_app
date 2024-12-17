@@ -70,6 +70,21 @@ class Intento {
       throw error;
     }
   }
+
+  async obtenerIntentos(){
+    try {
+      const sql = `SELECT * FROM intento ORDER BY id_intento DESC`;
+      await this.db.connect();
+      const intentos = await this.db.query(sql);
+      return intentos[0] || null;
+    } catch (error) {
+      console.error('No se pudo buscar el ultimo intento', error);
+      throw new error('No sse pudo buscar el ultimo intento');      
+    } finally {
+      this.db.close();
+    }
+
+  }
 }
 
 export default Intento;

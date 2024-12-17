@@ -43,6 +43,9 @@ GET http://localhost:3005/simu/api/pregunta/opciones/46
 GET http://localhost:3005/simu/api/pregunta/escorrecta/46
 
 
+### Consultar todos los intentos
+GET http://localhost:3005/simu/api/intentos
+
 ###POST para respuesta de usuario
 POST http://localhost:3005/simu/intento/respuesta/usuario
 Content-Type: application/json
@@ -56,4 +59,14 @@ Content-Type: application/json
 }
 
 ###GET para respuesta usuario por intento (ID)
-GET http://localhost:3005/simu/intento/respuesta/intento/1
+GET http://localhost:3005/simu/api/respuesta/intento/1
+
+
+
+### api para probar el simulacro
+POST http://localhost:3005/simu/api/simulacro/generar
+Content-Type: application/json
+
+{
+  "usuarioId": 9
+}

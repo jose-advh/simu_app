@@ -39,7 +39,7 @@ const intentoController = {
     }
   },
 
-  async obtenerIntentos(req, res) {
+  async obtenerIntentosPorUsuario(req, res) {
     const { usuario_id } = req.params;
     try {
       const intento = new Intento();
@@ -66,6 +66,20 @@ const intentoController = {
     } catch (error) {
       console.error('Error al obtener intento por ID:', error);
       return res.status(500).json({ message: 'Error al obtener el intento' });
+    }
+  },
+
+  async obtenerTodosLosIntentos(req, res) {
+    try {
+      const intento = new Intento();
+      const intentos = await intento.obtenerIntentos(); // Llama al método del modelo para obtener todos los intentos
+      if (intentos.length === 0) {
+        return res.status(404).json({ message: 'No se encontraron intentos' });
+      }
+      return res.json({ intentos });
+    } catch (error) {
+      console.error('Error al obtener todos los intentos:', error);
+      return res.status(500).json({ message: 'Error al obtener todos los intentos' });
     }
   }
 };
