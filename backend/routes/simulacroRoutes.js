@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/simulacro/generar/:id', simulacroController.generarSimulacro);
 router.post('/simulacro/enviar-respuestas', simulacroController.enviarRespuestas);
-router.get('/simulacro/resultados/:intentoId', simulacroController.obtenerResultados);
+router.get('/simulacro/enviar-resultados/:usuario_id', simulacroController.enviarResultados);
 
 export default router;

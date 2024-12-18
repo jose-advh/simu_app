@@ -15,6 +15,22 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
   }
 };
 
+
+export const obtenerPreguntaPorId = async (req, res) => {
+  const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
+  try {
+    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const preguntaEncontrada = await pregunta.obtenerPreguntaPorId(id); // Llamar al método de instancia
+    if (!preguntaEncontrada) {
+      return res.status(404).json({ error: 'No se encontró la pregunta con el ID especificado' });
+    }
+    res.json({ pregunta: preguntaEncontrada }); // Enviar la pregunta como respuesta
+  } catch (error) {
+    console.error('Error en el controlador:', error);
+    res.status(500).json({ error: 'Error al obtener la pregunta por ID en controlador' });
+  }
+};
+
 export const obtenerNombreMateriaPorId = async (req, res) => {
   const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
   try {

@@ -27,6 +27,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6M
 ### Probar pregunta aleatoria
 GET http://localhost:3005/simu/api/pregunta/aleatoria
 
+### obtener pregunta por id
+GET http://localhost:3005/simu/api/pregunta/19
+
 ### probar nombre de materia pregunta
 GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/46
 
@@ -155,3 +158,7 @@ Content-Type: application/json
     }
   ]
 }
+
+
+### enviar resultados
+GET http://localhost:3005/simu/api/simulacro/enviar-resultados/9
