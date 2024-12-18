@@ -136,34 +136,64 @@ const simulacroController = {
     },
 
 
-  async obtenerResultados(req, res) {
-    try {
-      const { intentoId } = req.params;
+  async enviarResultados(req, res) {
+      try {
+        const { usuario_id } = req.params;
 
-      // Obtener el intento y las preguntas asociadas
-      const intentoResponse = await axios.get(`${API_BASE_URL}/intento/${intentoId}`);
-      const preguntasResponse = await axios.get(`${API_BASE_URL}/intento/${intentoId}/preguntas`);
+        const intentosResponse = await axios.get(`${API_BASE_URL}/intentos/${usuario_id}`);
+        const intentos = intentosResponse.data.intentos;
+        
 
-      const intento = intentoResponse.data;
-      const preguntas = preguntasResponse.data;
+        if (intentos.length === 0) return res.status(404).send({ message: 'No se encontraron intentos para este usuario' });
 
-      // Calcular resultados
-      const resultados = preguntas.map(pregunta => {
-        return {
-          preguntaId: pregunta.id,
-          esCorrecta: pregunta.opciones.some(opcion => opcion.esCorrecta && opcion.id === intento.respuestaUsuario[pregunta.id])
+        const ultimoIntento = intentos[0];
+        const intentoId = ultimoIntento.id_intento;
+
+        const respuestasResponse = await axios.get(`${API_BASE_URL}/respuesta/intento/${intentoId}`);
+        const respuestas = respuestasResponse.data.respuesta;
+
+        const resultados = {
+          matematicas: 0,
+          lectura: 0,
+          naturales: 0,
+          sociales: 0,
+          ingles: 0,
+          general: 0,
         };
-      });
 
-      // Contar respuestas correctas
-      const puntuacionFinal = resultados.filter(resultado => resultado.esCorrecta).length * 10;
+        for (const respuesta of respuestas) {
+          const preguntaId = respuesta.pregunta_id;
 
-      res.status(200).json({ puntuacionFinal, resultados });
-    } catch (error) {
-      console.error('Error al obtener resultados', error);
-      res.status(500).send({ message: 'Error al obtener resultados' });
-    }
-  }
+          const preguntaResponse = await axios.get(`${API_BASE_URL}/pregunta/${preguntaId}`);
+          const pregunta = preguntaResponse.data;
+
+          if (respuesta.opcion_seleccionada == pregunta.es_orrecta) {
+            const nombreMateria = pregunta.nombre_materia.toLowerCase();
+            if (resultados[nombreMateria] !== undefined) {
+              resultados[nombreMateria] += 10;
+            }
+          }
+        }
+        const hora_final = new Date();
+        resultados.general = Object.values(resultados).reduce((acc, puntos) => acc + puntos, 0);
+
+        await axios.post(`${API_BASE_URL}/intento/editar/${intentoId}`, {
+          usuario_id,
+          fecha_inicio: ultimoIntento.fecha_inicio,
+          hora_final,
+          matematicas: resultados.matematicas,
+          lectura: resultados.lectura,
+          naturales: resultados.naturales,
+          sociales: resultados.sociales,
+          ingles: resultados.ingles,
+          general: resultados.general        
+        }),
+        res.status(200).json({ resultados });
+        } catch (error) {
+          console.error('Error al enviar resultados', error);
+          res.status(500).send({ message: 'Error al enviar resultados' });
+        }
+      }
 };
 
 
