@@ -6,31 +6,30 @@ const opcionesContenido = document.getElementById('opcionesContenido');
 const siguienteBtn = document.getElementById('siguienteBtn'); 
 const enviarBtn = document.getElementById('enviarRespuesta'); 
 const verPreguntaBtn = document.getElementById('botonVerPregunta');
-const regresarBtn = document.getElementById('regresarBtn'); // Obtener el botón de regresar
-let apiSimulacros; // Declarar la variable sin inicializar
-let usuarioId; // Declarar la variable sin inicializar
+const regresarBtn = document.getElementById('regresarBtn'); 
+let apiSimulacros; 
+let usuarioId; 
 let preguntasSeleccionadas = [];
 let preguntaActual = 0; 
 let intentoTerminado = false; 
 
-import verificarToken from './auth.js'; // Importar la función
+import verificarToken from './auth.js'; 
 
 const init = async () => {
-    const datos = await verificarToken(); // Llamar a la función para verificar el token
+    const datos = await verificarToken(); 
     if (!datos) {
-        window.location.href = 'login.html'; // Redirigir al login si no hay token
+        window.location.href = 'login.html'; 
         return;
     }
 
-    // Aquí puedes continuar con la lógica de tu aplicación si el token es válido
     console.log("Token válido, continuar con la carga de la página.");
-    console.log(`Bienvenido, ${datos.nombre}`); // Ejemplo de uso de los datos del usuario
+    console.log(`Bienvenido, ${datos.nombre}`);
     console.log(datos);
 
-    usuarioId = datos.id; // Asignar el id del usuario
-    apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/${usuarioId}`; // Usar datos.id en la URL
+    usuarioId = datos.id; 
+    apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/${usuarioId}`; 
 
-    obtenerPreguntas(); // Llamar a obtenerPreguntas después de inicializar apiSimulacros
+    obtenerPreguntas(); 
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -39,7 +38,7 @@ const obtenerPreguntas = async () => {
     try {
         const response = await fetch(apiSimulacros);
         const preguntas = await response.json();
-        preguntasSeleccionadas = preguntas; // Guardar las preguntas obtenidas
+        preguntasSeleccionadas = preguntas; 
         mostrarPregunta(preguntaActual);
     } catch (error) {
         console.error('Error al obtener preguntas:', error);
@@ -51,7 +50,7 @@ const mostrarPregunta = (index) => {
         const pregunta = preguntasSeleccionadas[index];
         nombreMateria.innerText = pregunta.nombreMateria;
         contenidoEnunciado.innerText = pregunta.enunciado;
-        contadorPreguntas.innerText = preguntaActual + 1; // Mostrar el número de pregunta actual
+        contadorPreguntas.innerText = preguntaActual + 1; 
         contenidoPregunta.innerText = pregunta.detallePregunta;
         opcionesContenido.innerHTML = `
             ${pregunta.opciones.map(opcion => `
@@ -62,74 +61,91 @@ const mostrarPregunta = (index) => {
             `).join('')}
         `;
 
-        // Mostrar el botón "Siguiente" y ocultar el botón "Enviar Respuestas"
         siguienteBtn.style.display = 'block';
         enviarBtn.style.display = 'none';
 
-        // Deshabilitar el botón "Siguiente" inicialmente
         siguienteBtn.disabled = true;
 
-        // Agregar evento para habilitar el botón "Siguiente" si hay una opción seleccionada
         opcionesContenido.addEventListener('change', () => {
             const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
-            siguienteBtn.disabled = !seleccionada; // Habilitar o deshabilitar el botón
+            siguienteBtn.disabled = !seleccionada; 
         });
 
         siguienteBtn.textContent = 'SIGUIENTE';
         siguienteBtn.onclick = () => {
-            guardarRespuesta(); // Guardar respuesta antes de avanzar
+            guardarRespuesta(); 
             preguntaActual++;
             if (preguntaActual < preguntasSeleccionadas.length) {
                 mostrarPregunta(preguntaActual);
             } else {
                 mostrarBotonEnviar();
             }
-            actualizarBotonRegresar(); // Actualizar el estado del botón "Regresar"
+            actualizarBotonRegresar(); 
         };
 
-        // Actualizar el estado del botón "Regresar"
         actualizarBotonRegresar();
     }
 };
 
-// Mostrar el botón "Regresar" y habilitarlo o deshabilitarlo según la pregunta actual
 const actualizarBotonRegresar = () => {
-    // Ocultar el botón "Regresar" si se ha terminado el intento
     if (intentoTerminado) {
         regresarBtn.style.display = 'none';
     } else {
-        regresarBtn.style.display = preguntaActual > 0 ? 'block' : 'none'; // Mostrar si no es la primera pregunta
-        regresarBtn.disabled = preguntaActual === 0; // Deshabilitar si es la primera pregunta
+        regresarBtn.style.display = preguntaActual > 0 ? 'block' : 'none';
+        regresarBtn.disabled = preguntaActual === 0; 
     }
 };
 
-// Agregar evento al botón "Regresar"
 regresarBtn.onclick = () => {
     if (preguntaActual > 0) {
-        guardarRespuesta(); // Guardar respuesta antes de regresar
+        guardarRespuesta(); 
         preguntaActual--;
-        mostrarPregunta(preguntaActual); // Mostrar la pregunta anterior
+        mostrarPregunta(preguntaActual); 
     }
 };
 
 const guardarRespuesta = () => {
     const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
     if (seleccionada) {
-        // Guardar la respuesta en la pregunta actual
         preguntasSeleccionadas[preguntaActual].respuesta = seleccionada.value; 
     } else {
-        // Si no hay respuesta seleccionada, puedes manejarlo aquí (opcional)
-        preguntasSeleccionadas[preguntaActual].respuesta = null; // O puedes omitir esta línea
+        preguntasSeleccionadas[preguntaActual].respuesta = null; 
     }
 };
 
 const mostrarBotonEnviar = () => {
-    intentoTerminado = true; // Marcar el intento como terminado
+    intentoTerminado = true; 
     enviarBtn.textContent = 'Terminar';
-    enviarBtn.onclick = confirmarEnvio; // Cambiar aquí para asignar la función
+    enviarBtn.onclick = confirmarEnvio; 
     enviarBtn.style.display = 'block';
     siguienteBtn.style.display = 'none'; 
-    actualizarBotonRegresar(); // Asegurarse de que el botón "Regresar" esté oculto
+    actualizarBotonRegresar(); 
+};
+
+const enviarResultados = async () => {
+    try {
+        const response = await fetch(`http://localhost:3005/simu/api/simulacro/enviar-resultados/${usuarioId}`);
+        const result = await response.json();
+        
+        Swal.fire({
+            title: 'Resultados Enviados',
+            text: `Resultado final obtenido: ${result.puntuaciones_general}/500`,
+            icon: 'info',
+            willClose: () => {
+                window.location.href = 'panel.html';
+            }
+        });
+    } catch (error) {
+        console.error('Error al enviar resultados:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'No se pudo enviar los resultados.',
+            icon: 'error',
+            willClose: () => {
+                window.location.href = 'panel.html';
+            }
+        });
+    }
 };
 
 function confirmarEnvio() {
@@ -149,6 +165,7 @@ function confirmarEnvio() {
                 'success'
             );
             enviarRespuestas();
+            enviarResultados(); 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             Swal.fire(
                 'Cancelado',
@@ -190,6 +207,8 @@ const enviarRespuestas = async () => {
 const verPregunta = () => {
     contenidoPregunta.classList.toggle('ocultar');
 }
+
+
 
 verPreguntaBtn.addEventListener('click', verPregunta);
 document.addEventListener('DOMContentLoaded', () => {
