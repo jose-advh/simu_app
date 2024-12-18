@@ -64,8 +64,7 @@ GET http://localhost:3005/simu/api/respuesta/intento/1
 
 
 
-### api para probar el simulacro
-GET http://localhost:3005/simu/api/simulacro/generar
+
 
 ### api para crear un intento
 POST http://localhost:3005/simu/api/intento
@@ -92,13 +91,67 @@ Content-Type: application/json
 {
     "usuario_id": 9,
     "fecha_inicio": "2023-10-02T10:00:00Z",
-    "hora_final": "2023-10-02T11:00:00Z",
+    "hora_final": null,
     "puntuaciones": {
-        "matematicas": 120,
-        "lectura": 160,
-        "naturales": 220,
-        "sociales": 270,
-        "ingles": 320,
-        "general": 420
+        "matematicas": 3,
+        "lectura": 3,
+        "naturales": 0,
+        "sociales": 0,
+        "ingles": 0,
+        "general": 0
     }
+}
+
+### api para probar el simulacro
+GET http://localhost:3005/simu/api/simulacro/generar/9
+
+### Enviar Respuestas
+
+POST http://localhost:3005/simu/api/simulacro/enviar-respuestas
+Content-Type: application/json
+
+{
+  "usuario_id": 9,
+  "respuestas": [
+    {
+      "preguntaId": 97,
+      "respuesta": "1989"
+    },
+    {
+      "preguntaId": 64,
+      "respuesta": "7/8"
+    },
+    {
+      "preguntaId": 10,
+      "respuesta": "Tienen el mismo número de electrones de valencia"
+    },
+    {
+      "preguntaId": 56,
+      "respuesta": "Los desafíos económicos y sociales que enfrentan los países con una población mayoritaria de personas mayores."
+    },
+    {
+      "preguntaId": 23,
+      "respuesta": "Book"
+    },
+    {
+      "preguntaId": 65,
+      "respuesta": "150 dólares"
+    },
+    {
+      "preguntaId": 28,
+      "respuesta": "faster"
+    },
+    {
+      "preguntaId": 83,
+      "respuesta": "A finales del siglo XV"
+    },
+    {
+      "preguntaId": 60,
+      "respuesta": "Leer mejora el vocabulario y la capacidad de concentración."
+    },
+    {
+      "preguntaId": 18,
+      "respuesta": "Roca sedimentaria"
+    }
+  ]
 }

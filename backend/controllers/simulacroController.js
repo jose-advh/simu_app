@@ -1,11 +1,13 @@
 import axios from 'axios';
 import intentoController from '../controllers/intentoController.js';
+import respuestaController from '../controllers/respuestaController.js';
 
 const API_BASE_URL = 'http://localhost:3005/simu/api';
 
 const simulacroController = {
   async generarSimulacro(req, res) {
     try {
+      const usuario_id = req.params.id;
       const preguntasSeleccionadas = [];
       const materiasContadas = {};
       const totalPreguntas = 10;
@@ -43,9 +45,12 @@ const simulacroController = {
           });
           materiasContadas[nombreMateria]++;
         }
+
+        if (preguntasSeleccionadas.length === totalPreguntas) {
+          break;
+        }
       }
 
-      const { usuario_id } = req.body;
       const fechaInicio = new Date();
 
       const intentoReq = {
@@ -53,12 +58,12 @@ const simulacroController = {
           usuario_id,
           fecha_inicio: fechaInicio,
           puntuaciones: {
-            matematicas: 1,
-            lectura: 1,
-            naturales: 1,
-            sociales: 1,
-            ingles: 1,
-            general: 1,
+            matematicas: null,
+            lectura: null,
+            naturales: null,
+            sociales: null,
+            ingles: null,
+            general: null,
           },
         }
       };
@@ -81,38 +86,55 @@ const simulacroController = {
     }
   },
 
-    async enviarRespuestas(req, res) {
+  async enviarRespuestas(req, res) {
     try {
-      const { usuarioId, intentoId, respuestas } = req.body; // respuestas es un array de objetos con { preguntaId, respuesta }
-      
-      // Aquí deberías obtener las preguntas del intento
-      const preguntasResponse = await axios.get(`${API_BASE_URL}/intento/${intentoId}/preguntas`);
-      const preguntas = preguntasResponse.data;
+        const { usuario_id, respuestas } = req.body; // respuestas es un array de objetos con { preguntaId, respuesta }
+        
+        // Obtener los intentos del usuario
+        const intentosResponse = await axios.get(`${API_BASE_URL}/intentos/${usuario_id}`);
+        const intentos = intentosResponse.data.intentos;
 
-      let puntuacion = 0;
-
-      // Comparar respuestas
-      respuestas.forEach(respuesta => {
-        const pregunta = preguntas.find(p => p.id === respuesta.preguntaId);
-        if (pregunta && pregunta.opciones.some(opcion => opcion.id === respuesta.respuesta && opcion.esCorrecta)) {
-          puntuacion += 10; // Incrementar la puntuación en 10 por cada respuesta correcta
+        if (intentos.length === 0) {
+            return res.status(404).send({ message: 'No se encontraron intentos para este usuario' });
         }
-      });
 
-      // Actualizar el intento con la puntuación
-      await axios.put(`${API_BASE_URL}/intento/${intentoId}`, {
-        puntuacionGeneral: puntuacion,
-        horaFinal: new Date() // Establecer la hora final
+        // Tomar el último intento
+        const ultimoIntento = intentos[0]; // Suponiendo que los intentos están ordenados por fecha de inicio
+        const intentoId = ultimoIntento.id_intento;
 
-          
-      });
+        // Crear respuestas
+        for (const respuesta of respuestas) {
+            const { preguntaId, respuesta: opcionSeleccionada } = respuesta;
 
-      res.status(200).json({ puntuacion });
-    } catch (error) {
-      console.error('Error al enviar respuestas', error);
-      res.status (500).send({ message: 'Error al enviar respuestas' });
-    }
-  },
+            // Crear el objeto de respuesta
+            const respuestaReq = {
+                body: {
+                    id: preguntaId, // Asumiendo que el id de respuesta es el mismo que el id de la pregunta
+                    intento: intentoId,
+                    pregunta: preguntaId,
+                    opcion_seleccionada: opcionSeleccionada,
+                    puntos: 1 // Inicialmente, los puntos se establecerán en 0
+                }
+            };
+
+            // Crear la respuesta utilizando el controlador
+            const respuestaRes = {
+                status: (statusCode) => ({
+                    json: (data) => {
+                        console.log('Respuesta creada: ', data);
+                    }
+                }),
+            };
+
+            await respuestaController.getRespuesta(respuestaReq, respuestaRes);
+        }
+        } catch (error) {
+        console.error('Error al enviar respuestas', error);
+        res.status(500).send({ message: 'Error al enviar respuestas' });
+    
+      }
+    },
+
 
   async obtenerResultados(req, res) {
     try {

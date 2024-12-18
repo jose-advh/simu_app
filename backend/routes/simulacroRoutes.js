@@ -3,7 +3,7 @@ import simulacroController from '../controllers/simulacroController.js';
 
 const router = express.Router();
 
-router.post('/simulacro/generar', simulacroController.generarSimulacro);
+router.get('/simulacro/generar/:id', simulacroController.generarSimulacro);
 router.post('/simulacro/enviar-respuestas', simulacroController.enviarRespuestas);
 router.get('/simulacro/resultados/:intentoId', simulacroController.obtenerResultados);
 
