@@ -748,6 +748,10 @@ hr {
 
 /* PLANTILLA */
 
+.bg--plantilla {
+    background: url('../imgs/backgrounds/bg_plantilla.webp');
+}
+
 .header--plantilla {
     font-family: var(--fuente-secundario)
 }
@@ -854,11 +858,37 @@ hr {
     height: 20px; 
 }
 
+.main__buttons {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+
 #siguienteBtn {
     padding: 1rem 3rem;
     border-radius: 10px;
     border: none;
     background-color: var(--color-principal);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.2rem;
+}
+
+#enviarRespuesta {
+    padding: 1rem 3rem;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-principal);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.2rem;
+}
+
+#regresarBtn {
+    padding: 1rem 3rem;
+    border-radius: 10px;
+    border: none;
+    background-color:rgb(255, 105, 105);
     color: white;
     font-family: var(--fuente-titulos);
     font-size: 1.2rem;
@@ -997,5 +1027,11 @@ hr {
 
     .main__contact--element {
         padding: 4rem 1rem 4rem;
+    }
+
+    .main__buttons {
+        justify-content: center;
+        align-items: center;
+        margin: auto;
     }
 }

@@ -6,10 +6,12 @@ const opcionesContenido = document.getElementById('opcionesContenido');
 const siguienteBtn = document.getElementById('siguienteBtn'); 
 const enviarBtn = document.getElementById('enviarRespuesta'); 
 const verPreguntaBtn = document.getElementById('botonVerPregunta');
+const regresarBtn = document.getElementById('regresarBtn'); // Obtener el botón de regresar
 const apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/9`;
 const usuarioId = 9; // ID del usuario
 let preguntasSeleccionadas = []; // Array para almacenar las preguntas y respuestas
 let preguntaActual = 0; // Índice de la pregunta actual
+let intentoTerminado = false; // Variable para controlar si el intento ha terminado
 
 const obtenerPreguntas = async () => {
     try {
@@ -60,14 +62,38 @@ const mostrarPregunta = (index) => {
             } else {
                 mostrarBotonEnviar();
             }
+            actualizarBotonRegresar(); // Actualizar el estado del botón "Regresar"
         };
+
+        // Actualizar el estado del botón "Regresar"
+        actualizarBotonRegresar();
+    }
+};
+
+// Mostrar el botón "Regresar" y habilitarlo o deshabilitarlo según la pregunta actual
+const actualizarBotonRegresar = () => {
+    // Ocultar el botón "Regresar" si se ha terminado el intento
+    if (intentoTerminado) {
+        regresarBtn.style.display = 'none';
+    } else {
+        regresarBtn.style.display = preguntaActual > 0 ? 'block' : 'none'; // Mostrar si no es la primera pregunta
+        regresarBtn.disabled = preguntaActual === 0; // Deshabilitar si es la primera pregunta
+    }
+};
+
+// Agregar evento al botón "Regresar"
+regresarBtn.onclick = () => {
+    if (preguntaActual > 0) {
+        guardarRespuesta(); // Guardar respuesta antes de regresar
+        preguntaActual--;
+        mostrarPregunta(preguntaActual); // Mostrar la pregunta anterior
     }
 };
 
 const guardarRespuesta = () => {
     const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
     if (seleccionada) {
-        // Guardar la respuesta en la pregunta actual
+        // Guard ar la respuesta en la pregunta actual
         preguntasSeleccionadas[preguntaActual].respuesta = seleccionada.value; 
     } else {
         // Si no hay respuesta seleccionada, puedes manejarlo aquí (opcional)
@@ -76,17 +102,45 @@ const guardarRespuesta = () => {
 };
 
 const mostrarBotonEnviar = () => {
-    // Mostrar el botón "Enviar Respuestas" y ocultar el botón "Siguiente"
-    enviarBtn.textContent = 'Enviar Respuestas';
-    enviarBtn.onclick = enviarRespuestas;
+    intentoTerminado = true; // Marcar el intento como terminado
+    enviarBtn.textContent = 'Terminar';
+    enviarBtn.onclick = confirmarEnvio; // Cambiar aquí para asignar la función
     enviarBtn.style.display = 'block';
-    siguienteBtn.style.display = 'none'; // Ocultar el botón "Siguiente"
+    siguienteBtn.style.display = 'none'; 
+    actualizarBotonRegresar(); // Asegurarse de que el botón "Regresar" esté oculto
 };
+
+function confirmarEnvio() {
+    Swal.fire({
+        title: '¿Está seguro de terminar el intento?',
+        text: "No podrá revertir esta acción.",
+        icon: 'warning',
+        showCancelButton: true, 
+        confirmButtonText: 'Sí, terminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true 
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Intento Terminado',
+                'Su intento ha sido finalizado con éxito.',
+                'success'
+            );
+            enviarRespuestas();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire(
+                'Cancelado',
+                'El intento sigue activo.',
+                'error'
+            );
+        }
+    });
+}
 
 const enviarRespuestas = async () => {
     const respuestas = preguntasSeleccionadas.map(pregunta => ({
         preguntaId: pregunta.id,
-        respuesta: pregunta.respuesta || '' // Asegúrate de que haya una respuesta
+        respuesta: pregunta.respuesta || '' 
     }));
 
     const payload = {
@@ -116,39 +170,7 @@ const verPregunta = () => {
 }
 
 verPreguntaBtn.addEventListener('click', verPregunta);
-document.addEventListener('DOMContentLoaded', obtenerPreguntas);
-    // import verificarToken from './auth.js';
-
-// const init = async () => {
-//     const datos = await verificarToken();
-//     if (!datos) {
-//         console.log(datos)
-//         return;
-//     }
-
-// }
-
-// document.addEventListener('DOMContentLoaded', init);
-
-
-    // [
-    //     {
-    //       "id": 41,
-    //       "nombreMateria": "Ingles",
-    //       "enunciado": "Choose the correct word to complete the sentence.",
-    //       "detallePregunta": "She ___ in the park every weekend.",
-    //       "opciones": [
-    //         {
-    //           "opcion_texto": "runs"
-    //         },
-    //         {
-    //           "opcion_texto": "run"
-    //         },
-    //         {
-    //           "opcion_texto": "running"
-    //         },
-    //         {
-    //           "opcion_texto": "to run"
-    //         }
-    //       ]
-    //     },
+document.addEventListener('DOMContentLoaded', () => {
+    obtenerPreguntas();
+    actualizarBotonRegresar(); // Inicializar el estado del botón "Regresar"
+});
