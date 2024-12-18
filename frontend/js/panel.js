@@ -74,11 +74,6 @@ botonCerrarSesion.addEventListener('click', confirmarCerrarSesion);
 
 window.addEventListener('scroll', asideFixed);
 
-
-
-
-
-
 const verificarToken = async () => {
     const token = localStorage.getItem('token');
     const datos = jwt_decode(token); 

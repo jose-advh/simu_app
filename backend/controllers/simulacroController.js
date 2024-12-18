@@ -53,12 +53,12 @@ const simulacroController = {
           usuario_id,
           fecha_inicio: fechaInicio,
           puntuaciones: {
-            matematicas: 0,
-            lectura: 0,
-            naturales: 0,
-            sociales: 0,
-            ingles: 0,
-            general: 0,
+            matematicas: 1,
+            lectura: 1,
+            naturales: 1,
+            sociales: 1,
+            ingles: 1,
+            general: 1,
           },
         }
       };
