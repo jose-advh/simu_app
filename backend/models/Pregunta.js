@@ -26,6 +26,30 @@ class Pregunta {
     }
   }
 
+
+async obtenerPreguntaPorId(id) {
+  try {
+    await this.db.connect();
+    const sql = `
+      SELECT 
+        p.id_pregunta AS pregunta_id,
+        p.pregunta AS pregunta,
+        p.materia_id AS materia_id
+      FROM 
+        pregunta p
+      WHERE 
+        p.id_pregunta = ?;
+    `;
+    const rows = await this.db.query(sql, [id]);
+    return rows[0] || null; 
+  } catch (error) {
+    console.error('Error al obtener pregunta por ID:', error);
+    throw new Error('Error al obtener pregunta por ID en modelo');
+  } finally {
+    await this.db.close(); 
+  }
+}
+
   async obtenerNombreMateria(id) {
     try {
       await this.db.connect();
@@ -40,12 +64,12 @@ class Pregunta {
           p.id_pregunta = ?;
       `;
       const rows = await this.db.query(sql, [id]);
-      return rows[0] ? rows[0].nombre_materia : null; // Retorna el nombre de la materia o null si no existe
+      return rows[0] ? rows[0].nombre_materia : null; 
     } catch (error) {
       console.error('Error al obtener nombre de la materia:', error);
       throw new Error('Error al obtener nombre de la materia');
     } finally {
-      await this.db.close(); // Asegúrate de cerrar la conexión
+      await this.db.close(); 
     }
   }
 
@@ -106,12 +130,12 @@ class Pregunta {
           o.pregunta_id = ?;
       `;
       const rows = await this.db.query(sql, [id]);
-      return rows; // Retorna un array de opciones
+      return rows; 
     } catch (error) {
       console.error('Error al obtener opciones por ID de pregunta:', error);
       throw new Error('Error al obtener opciones por ID de pregunta');
     } finally {
-      await this.db.close(); // Asegúrate de cerrar la conexión
+      await this.db.close(); 
     }
   }
 
@@ -127,7 +151,7 @@ class Pregunta {
       p.id_pregunta = ?;
     `;
     const rows = await this.db.query(sql, [id]);
-    return rows[0] ? rows[0].es_correcta : null; // Retorna la
+    return rows[0] ? rows[0].es_correcta : null; 
     } catch (error) {
       console.error("Error al obtener la respuesta correcta", error);
       throw new Error("Error al obtener la respuesta correcta");

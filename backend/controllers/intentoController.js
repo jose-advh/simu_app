@@ -88,7 +88,7 @@ const intentoController = {
     
     async editarIntento(req, res) {
         const { id } = req.params; 
-        const { usuario_id, fecha_inicio, hora_final, puntuaciones } = req.body; 
+        const { usuario_id, fecha_inicio, hora_final, puntuacion_general } = req.body; 
 
         if (!usuario_id || !fecha_inicio) {
             return res.status(400).json({ message: 'El usuario_id y la fecha_inicio son obligatorios' });
@@ -98,24 +98,11 @@ const intentoController = {
             return res.status(400).json({ message: 'La fecha de inicio no es válida' });
         }
 
-        const puntajes = [
-            puntuaciones.matematicas,
-            puntuaciones.lectura,
-            puntuaciones.naturales,
-            puntuaciones.sociales,
-            puntuaciones.ingles,
-            puntuaciones.general,
-        ];
-
-        for (const puntaje of puntajes) {
-            if (puntaje < 0 || puntaje > 500) {
-                return res.status(400).json({ message: 'Los puntajes deben estar entre 0 y 500' });
-            }
-        }
+        
 
         try {
             const intento = new Intento();
-            await intento.editarIntentoPorId(id, usuario_id, fecha_inicio, hora_final, puntuaciones.matematicas, puntuaciones.lectura, puntuaciones.naturales, puntuaciones.sociales, puntuaciones.ingles, puntuaciones.general);
+            await intento.editarIntentoPorId(id, usuario_id, fecha_inicio, hora_final,  puntuacion_general);
             return res.status(200).json({ message: 'Intento editado con éxito' });
         } catch (error) {
             console.error('Error al editar el intento:', error);
