@@ -1,7 +1,7 @@
 const mostrarContenido = document.getElementById('panel');
 const spanNombreUsuario = document.getElementById('nombreUsuario');
 const contenidoSimulacros = document.getElementById('seccionSimulacros');
-const contenidoNosotros = document.getElementById('seccionNosotros');
+const contenidoNosotros = document.getElementById('todo');
 const irSeccionNosotros = document.getElementById('irSeccionNosotros');
 const irSeccionSimulacros = document.getElementById('irSeccionSimulacros');
 const irSimulacro = document.getElementById('irSimulacro');
@@ -91,5 +91,45 @@ const init = async () => {
     mostrarContenido.classList.remove('ocultar');
     spanNombreUsuario.innerText = datos.nombre;
 }
+
+const leftArrow = document.getElementById("left-arrow");
+const rightArrow = document.getElementById("right-arrow");
+const cardContainer = document.getElementById("card-container");
+const dots = document.querySelectorAll(".dot");
+
+let index = 0; 
+
+function updateDots() {
+  dots.forEach((dot, i) => {
+    dot.classList.toggle("bg-purple-custom", i === index);
+    dot.classList.toggle("bg-gray-300", i !== index);
+  });
+}
+
+leftArrow.addEventListener("click", () => {
+  if (index > 0) {
+    index--;
+    cardContainer.scrollLeft -= cardContainer.offsetWidth; 
+    updateDots();
+  }
+});
+
+rightArrow.addEventListener("click", () => {
+  if (index < dots.length - 1) {
+    index++;
+    cardContainer.scrollLeft += cardContainer.offsetWidth; 
+    updateDots();
+  }
+});
+
+dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    index = i;
+    cardContainer.scrollLeft = cardContainer.offsetWidth * i; 
+    updateDots();
+  });
+});
+
+updateDots();
 
 document.addEventListener('DOMContentLoaded', init);

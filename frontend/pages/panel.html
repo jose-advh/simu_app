@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simu - Panel</title>
     <link rel="stylesheet" href="../css/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
   </head>
   <body class="ocultar" id="panel">
     <header class="header--panel">
@@ -42,11 +44,6 @@
             id="irSeccionSimulacros"
             src="../imgs/icons/simulacros_icon.svg"
             alt="ir a la seccion simulacros"
-          />
-          <img
-            class="aside__item"
-            src="../imgs/icons/resultados_icon.svg"
-            alt="ir a la seccion resultados"
           />
           <img
             class="aside__item"
@@ -131,24 +128,150 @@
         </article>  
       </section>
 
-
-      <section class="ocultar" id="seccionNosotros">
+      <article id="todo" class="ocultar">
+      <section id="seccionNosotros">
         <article class="main__nosotros">
+          <section class="nosotros__img">
+            <img src="../imgs/people/ej-sim.webp" class="nosotros__item--img" alt="">
+          </section>
           <section class="nosotros__text">
             <article class="text__info">
-              <h2 class="text__title">NOSOTROS SOMOS</h2>
+              <h2 class="text__title">NUESTRA HISTORIA</h2>
               <p class="text__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam consequuntur sunt minus ipsa, blanditiis fugiat! Ab minima a nobis culpa illo neque magnam nulla provident facere laboriosam. Tenetur, atque eaque.
+                La aplicación simu-icfes surgio debido a la falta de un sitio web que ofrezca a los estudiantes la
+                capacidad para poder estudiar y presentar pruebas con resultados prometedores y manejando una metodología
+                dinámica y no tan estricta, y asi fue como un grupo de profesionales apasionados por la educación se
+                reunieron con un objetivo en común: crear una herramienta que ayudara a los estudiantes a prepararse de
+                manera efectiva para la prueba Saber 11.
               </p>
             </article>
           </section>
-          <section class="nosotros__img">
-            <img src="../imgs/people/foto_grupal.avif" class="nosotros__item--img" alt="">
-          </section>
         </article>
       </section>
-
-
+  
+      <section class="cards__container">
+        <div class="card">
+          <div class="card__icon">
+            <img src="../imgs/icons/nosotros/mision.webp" alt="Icono izquierda" class="card__icon--img">
+          </div>
+          <div class="card__text">
+            <h3 class="card__title--us">Misión</h3>
+            <p class="card__description">Nuestra misión en simu-icfes es brindar a los estudiantes las herramientas
+              necesarias para prepararse de manera efectiva y obtener un buen resultado en la prueba saber 11. Nos
+              comprometemos a ofrecer simulacros de alta calidad, material educativo actualizado y un ambiente de
+              aprendizaje en línea que propicie el crecimiento académico de cada usuario.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <img src="../imgs/icons/nosotros/vision.webp" alt="Icono derecha" class="card__icon--img">
+          </div>
+          <div class="card__text">
+            <h3 class="card__title--us">Visión</h3>
+            <p class="card__description">Nuestra visión en simu-icfes es ser el sitio web de referencia para la
+              preparación de la prueba saber 11, reconocido por su calidad, efectividad y compromiso con los estudiantes.
+              Aspiramos a ser líderes en el sector educativo en línea, ofreciendo una plataforma innovadora y adaptada a
+              las necesidades de cada usuario, con el objetivo de contribuir al éxito académico de miles de estudiantes en
+              Colombia.</p>
+          </div>
+        </div>
+      </section>
+  
+      <section class="flex flex-col items-center justify-center min-h-screen">
+        <div id="carrousel__container" class="relative w-full max-w-4xl">
+          <div id="left-arrow"
+            class="absolute left-[-30px] top-1/3 transform -translate-y-1/2 text-3xl text-purple-custom cursor-pointer z-10">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div id="card-container" class="card-container flex flex-row overflow-hidden space-x-4 py-8 px-4">
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/mena.webp"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Andrés Mena</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"El peor error está entre el teclado y la silla".</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Backend</button>
+              </div>
+            </div>
+  
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/daysliz.webp"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Daysliz Vasquez</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"Ctrl + C, Ctrl + V, ¡y listo!"</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Frontend</button>
+              </div>
+            </div>
+  
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/gael.webp"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Gael Urueta</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"Apaga y vuelve a encender."</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Frontend</button>
+              </div>
+            </div>
+  
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/hector.webp"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Hector Diaz</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"Es una característica, no un error".</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Backend</button>
+              </div>
+            </div>
+  
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/jose_diaz.webp"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Jose Diaz</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"Si funciona, no lo toques."</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Frontend</button>
+              </div>
+            </div>
+  
+            <div class="bg-white rounded-lg shadow-lg flex-shrink-0 w-64">
+              <div class="bg-purple-custom rounded-t-lg p-6 flex flex-col items-center">
+                <img alt="Avatar" class="rounded-full border-4 border-white mb-4" src="../imgs/personas/jesus.jpg"
+                  width="200" height="200" />
+                <h2 class="text-white text-xl font-semibold">Jesus Gonzales</h2>
+              </div>
+              <div class="p-6 text-center">
+                <p class="text-black-800 mb-4">"Más café, menos errores."</p>
+                <button class="bg-purple-custom text-white px-4 py-2 rounded-full">Backend</button>
+              </div>
+            </div>
+          </div>
+          <div id="right-arrow"
+            class="absolute right-[-40px] top-1/3 transform -translate-y-1/2 text-3xl text-purple-custom cursor-pointer">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+  
+        <div class="flex space-x-2 mt-4">
+          <div class="dot w-4 h-4 bg-purple-custom rounded-full cursor-pointer"></div>
+          <div class="dot w-4 h-4 bg-gray-300 rounded-full cursor-pointer"></div>
+          <div class="dot w-4 h-4 bg-gray-300 rounded-full cursor-pointer"></div>
+          <div class="dot w-4 h-4 bg-gray-300 rounded-full cursor-pointer"></div>
+          <div class="dot w-4 h-4 bg-gray-300 rounded-full cursor-pointer"></div>
+          <div class="dot w-4 h-4 bg-gray-300 rounded-full cursor-pointer"></div>
+        </div>
+      </section>
+    </article>
 
 
     </main>
