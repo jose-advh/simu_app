@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simu - Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg--plantilla">
+    <header class="header--plantilla">
+        <nav class="header__nav">
+            <ul class="nav__list">
+                <li class="nav__item--purple"><span id="contadorPreguntas"></span>/10</li>
+                <li><span id="nombreMateria"></span></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main main--plantilla">
+        <article class="main__enunciado">
+            <span id="contenidoEnunciado">
+
+            </span>
+        </article>
+        <article class="main__pregunta">
+            <button class="pregunta__button" id="botonVerPregunta">VER PREGUNTA ▼</button>
+            <section id="contenidoPregunta" class="pregunta__contenido ocultar">
+            </section>
+        </article>
+        <article class="main__opciones" id="opcionesContenido">
+
+        </article>
+        <section class="main__buttons">
+            <button id="regresarBtn" style="display: none;">Regresar</button>
+            <button id="siguienteBtn"></button>
+            <button id="enviarRespuesta"></button>
+        </section>
+    </main>
+    <footer></footer>
+
+    <script type="module" src="../js/plantilla.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+</html>

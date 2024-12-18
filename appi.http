@@ -1,9 +1,164 @@
 #### Crear usuario
-POST http:localhost:3005/simu/auth/registro
+POST http://localhost:3005/simu/auth/registro
 Content-Type: application/json
 
 {
   "nombre": "Juan",
   "correo": "juan@gmail.com",
-  "contraseña": "12345678",
+  "contraseña": "12345678"
+} 
+
+
+#### Peticion get
+POST http://localhost:3005/simu/auth/login
+Content-Type: application/json
+
+{
+  "correo": "juan@gmail.com",
+  "contrasena": "12345678"
 }
+
+
+### Validar token
+GET http://localhost:3005/simu/auth/validar-token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTczNDEzMDIwMiwiZXhwIjoxNzM0MTM3NDAyfQ.Jmif66O72C-eUVfKWrKPYroU_4fcxm3o5IWXThgiOYE
+
+
+### Probar pregunta aleatoria
+GET http://localhost:3005/simu/api/pregunta/aleatoria
+
+### obtener pregunta por id
+GET http://localhost:3005/simu/api/pregunta/19
+
+### probar nombre de materia pregunta
+GET http://localhost:3005/simu/api/pregunta/aleatoria-materia/46
+
+### probar enunciado de pregunta
+GET http://localhost:3005/simu/api/pregunta/enunciado/46
+
+###probar detalle de la pregunta
+GET http://localhost:3005/simu/api/pregunta/detalle/46
+
+### probar OPCIONES de pregunta
+GET http://localhost:3005/simu/api/pregunta/opciones/46
+
+### Probar respuesta correcta de pregunta
+GET http://localhost:3005/simu/api/pregunta/escorrecta/46
+
+
+### Consultar todos los intentos
+GET http://localhost:3005/simu/api/intentos
+
+###POST para respuesta de usuario
+POST http://localhost:3005/simu/intento/respuesta/usuario
+Content-Type: application/json
+
+{
+  "id": 1,
+  "intento": 1,
+  "pregunta": 46,
+  "opcion_seleccionada": "opcion",
+  "puntos": 10
+}
+
+
+###GET para respuesta usuario por intento (ID)
+GET http://localhost:3005/simu/api/respuesta/intento/1
+
+
+
+
+
+### api para crear un intento
+POST http://localhost:3005/simu/api/intento
+Content-Type: application/json
+
+{
+    "usuario_id": 9,
+    "fecha_inicio": "2023-10-01T10:00:00Z",
+    "puntuaciones": {
+        "matematicas": 450,
+        "lectura": 400,
+        "naturales": 350,
+        "sociales": 300,
+        "ingles": 250,
+        "general": 400
+    }
+}
+
+
+### api para editar un intento
+PUT http://localhost:3005/simu/api/intento/editar/1
+Content-Type: application/json
+
+{
+    "usuario_id": 9,
+    "fecha_inicio": "2023-10-02T10:00:00Z",
+    "hora_final": null,
+    "puntuaciones": {
+        "matematicas": 4,
+        "lectura": 3,
+        "naturales": 0,
+        "sociales": 0,
+        "ingles": 0,
+        "general": 0
+    }
+}
+
+### api para probar el simulacro
+GET http://localhost:3005/simu/api/simulacro/generar/9
+
+### Enviar Respuestas
+
+POST http://localhost:3005/simu/api/simulacro/enviar-respuestas
+Content-Type: application/json
+
+{
+  "usuario_id": 9,
+  "respuestas": [
+    {
+      "preguntaId": 97,
+      "respuesta": "1989"
+    },
+    {
+      "preguntaId": 64,
+      "respuesta": "7/8"
+    },
+    {
+      "preguntaId": 10,
+      "respuesta": "Tienen el mismo número de electrones de valencia"
+    },
+    {
+      "preguntaId": 56,
+      "respuesta": "Los desafíos económicos y sociales que enfrentan los países con una población mayoritaria de personas mayores."
+    },
+    {
+      "preguntaId": 23,
+      "respuesta": "Book"
+    },
+    {
+      "preguntaId": 65,
+      "respuesta": "150 dólares"
+    },
+    {
+      "preguntaId": 28,
+      "respuesta": "faster"
+    },
+    {
+      "preguntaId": 83,
+      "respuesta": "A finales del siglo XV"
+    },
+    {
+      "preguntaId": 60,
+      "respuesta": "Leer mejora el vocabulario y la capacidad de concentración."
+    },
+    {
+      "preguntaId": 18,
+      "respuesta": "Roca sedimentaria"
+    }
+  ]
+}
+
+
+### enviar resultados
+GET http://localhost:3005/simu/api/simulacro/enviar-resultados/9

@@ -15,7 +15,6 @@ class Database {
   async connect () {
     try {
       this.connection = await mysql.createConnection(this.config);
-      console.log('Conectado a la base de datos');
       return this.connection;
       } catch (error) {
         console.error('Error al conectar a la base de datos:', error);
@@ -34,7 +33,6 @@ class Database {
   async close() {
     try {
       await this.connection.end();
-      console.log('Conexión cerrada');      
     } catch (error) {
       console.error('Error en cerrar la conexión a la base de datos', error);
     }

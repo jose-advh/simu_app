@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos Simu - Registro</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>Registrate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Oleo+Script&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
+
 <body>
-    Registro
+    <div class="page">
+        <h2 class="form__title">REGISTRARSE</h2>
+        <a href="../../index.html" class="logo">
+        <div class="header">
+            <h1 class="header__title">
+                <span class="header__word--main">SOMOS</span>
+                <br>
+                <span class="header__word--sub">SIMU</span>
+            </h1>
+        </div>
+     </a>
+     <div class="divider"></div>
+        <form class="form" id="formRegister">
+            <input type="text" class="form__input" id="nombre" placeholder="Nombre" required>
+            <input type="email" class="form__input" id="email" placeholder="Correo electrónico" required>
+            <input type="password" id="password" class="form__input--password" placeholder="Contraseña" required>
+            <p class="form__register">
+                ¿Ya tienes una cuenta? <a href="login.html" class="form__register--link">Inicia aquí</a>
+            </p>
+            <button class="form__btn--register">REGISTRAR</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/auth.js"></script>
 </body>
 </html>
