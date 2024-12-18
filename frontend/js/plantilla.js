@@ -7,11 +7,33 @@ const siguienteBtn = document.getElementById('siguienteBtn');
 const enviarBtn = document.getElementById('enviarRespuesta'); 
 const verPreguntaBtn = document.getElementById('botonVerPregunta');
 const regresarBtn = document.getElementById('regresarBtn'); // Obtener el botón de regresar
-const apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/9`;
-const usuarioId = 9; // ID del usuario
-let preguntasSeleccionadas = []; // Array para almacenar las preguntas y respuestas
-let preguntaActual = 0; // Índice de la pregunta actual
-let intentoTerminado = false; // Variable para controlar si el intento ha terminado
+let apiSimulacros; // Declarar la variable sin inicializar
+let usuarioId; // Declarar la variable sin inicializar
+let preguntasSeleccionadas = [];
+let preguntaActual = 0; 
+let intentoTerminado = false; 
+
+import verificarToken from './auth.js'; // Importar la función
+
+const init = async () => {
+    const datos = await verificarToken(); // Llamar a la función para verificar el token
+    if (!datos) {
+        window.location.href = 'login.html'; // Redirigir al login si no hay token
+        return;
+    }
+
+    // Aquí puedes continuar con la lógica de tu aplicación si el token es válido
+    console.log("Token válido, continuar con la carga de la página.");
+    console.log(`Bienvenido, ${datos.nombre}`); // Ejemplo de uso de los datos del usuario
+    console.log(datos);
+
+    usuarioId = datos.id; // Asignar el id del usuario
+    apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/${usuarioId}`; // Usar datos.id en la URL
+
+    obtenerPreguntas(); // Llamar a obtenerPreguntas después de inicializar apiSimulacros
+}
+
+document.addEventListener('DOMContentLoaded', init);
 
 const obtenerPreguntas = async () => {
     try {
@@ -93,7 +115,7 @@ regresarBtn.onclick = () => {
 const guardarRespuesta = () => {
     const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
     if (seleccionada) {
-        // Guard ar la respuesta en la pregunta actual
+        // Guardar la respuesta en la pregunta actual
         preguntasSeleccionadas[preguntaActual].respuesta = seleccionada.value; 
     } else {
         // Si no hay respuesta seleccionada, puedes manejarlo aquí (opcional)

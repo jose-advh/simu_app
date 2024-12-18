@@ -4,7 +4,9 @@ const contenidoSimulacros = document.getElementById('seccionSimulacros');
 const contenidoNosotros = document.getElementById('seccionNosotros');
 const irSeccionNosotros = document.getElementById('irSeccionNosotros');
 const irSeccionSimulacros = document.getElementById('irSeccionSimulacros');
+const irSimulacro = document.getElementById('irSimulacro');
 const botonCerrarSesion = document.getElementById('cerrarSesion');
+
 
 const mostrarSeccionNosotros = (e) => {
     e.preventDefault();
@@ -65,11 +67,15 @@ const asideFixed = () => {
     }
 };
 
-window.addEventListener('scroll', asideFixed);
+const redirigirSimulacro = () => {
+    window.location.href = 'plantilla.html';
+}
 
+window.addEventListener('scroll', asideFixed);
 irSeccionNosotros.addEventListener('click', mostrarSeccionNosotros);
 irSeccionSimulacros.addEventListener('click', mostrarSeccionSimulacros);
 botonCerrarSesion.addEventListener('click', confirmarCerrarSesion);
+irSimulacro.addEventListener('click', redirigirSimulacro);
 
 window.addEventListener('scroll', asideFixed);
 
