@@ -26,6 +26,31 @@ class Pregunta {
     }
   }
 
+  // c:\Users\h\Documents\INCA-TECN-SYSTEM\Aplicaciones-moviles\proyectos\proyecto-final\simu_app\backend\models\Pregunta.js
+
+async obtenerPreguntaPorId(id) {
+  try {
+    await this.db.connect();
+    const sql = `
+      SELECT 
+        p.id_pregunta AS pregunta_id,
+        p.pregunta AS pregunta,
+        p.materia_id AS materia_id
+      FROM 
+        pregunta p
+      WHERE 
+        p.id_pregunta = ?;
+    `;
+    const rows = await this.db.query(sql, [id]);
+    return rows[0] || null; // Retorna la pregunta o null si no existe
+  } catch (error) {
+    console.error('Error al obtener pregunta por ID:', error);
+    throw new Error('Error al obtener pregunta por ID en modelo');
+  } finally {
+    await this.db.close(); // Asegúrate de cerrar la conexión
+  }
+}
+
   async obtenerNombreMateria(id) {
     try {
       await this.db.connect();
