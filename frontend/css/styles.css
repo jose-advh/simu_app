@@ -748,11 +748,15 @@ hr {
 
 /* PLANTILLA */
 
+.header--plantilla {
+    font-family: var(--fuente-secundario)
+}
+
 .nav__list {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1.5rem;
-    border: 1px solid;
 }
 
 .main--plantilla {
@@ -760,6 +764,24 @@ hr {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 15px;
+    font-family: var(--fuente-secundario);
+    padding-bottom: 2rem;
+}
+
+.nav__item--purple {
+    font-size: 1.1rem;
+    color: var(--color-secundario)
+}
+
+#nombreMateria {
+    font-size: .9rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#contadorPreguntas {
+    color: black;
 }
 
 .main__enunciado {
@@ -767,24 +789,79 @@ hr {
     max-width: 90%;
     max-height: 40vh;
     border: 1px solid;
+    border-color: gray;
     overflow: auto;
 }
 
+#contenidoEnunciado {
+    font-size: 1.2rem;
+}
+
 .main__pregunta {
-    border: 1px solid;
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    background-color: var(--color-terciario);
+    gap: 5px;
 }
 
 .pregunta__button {
-    padding: 1rem 7rem;
+    background-color: var(--color-principal);
+    color: white;
+    border-radius: 10px;
+    border: none;
     width: 100%;
+    height: 3rem;
+    margin: auto;
 }
 
 .pregunta__contenido {
-    display: block;
+    padding: .5rem;
+}
+
+#contenidoPregunta {
+    font-size: 1.2rem;
+    padding: .5rem
 }
 
 .main__opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 32%;
+    max-width: 100%;
+}
 
+.main__opciones > label {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--color-secundario);
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0px 0px 5px rgba(255, 116, 209, 0.5);
+    transition: .5s all ease;
+}
+
+.main__opciones > label:hover {
+    scale: 1.1;
+}
+
+.main__opciones > label > input {
+    width: 20px; 
+    height: 20px; 
+}
+
+#siguienteBtn {
+    padding: 1rem 3rem;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-principal);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.2rem;
 }
 
 
@@ -863,6 +940,10 @@ hr {
 
     .aside__item {
         width: 20%;
+    }
+
+    .main__opciones {
+        width: 80%;
     }
 }
 

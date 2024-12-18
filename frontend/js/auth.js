@@ -76,3 +76,39 @@ if (formRegister) {
           }, 1000);
     });
 }
+
+const verificarToken = async () => {
+    const token = localStorage.getItem('token');
+    const datos = token ? jwt_decode(token) : null; 
+    
+    if (!token) {
+        console.log('No se encontró token, redirigiendo a login...');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3005/simu/auth/validar-token', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Token expirado o inválido');
+            } else {
+                throw new Error('Error en el servidor');
+            }
+        }
+
+        return datos; // Devuelve los datos del token si es válido
+
+    } catch (error) {
+        console.error('Error al verificar el token:', error.message);
+        window.location.href = 'login.html'; 
+    }
+}
+
+export default verificarToken;

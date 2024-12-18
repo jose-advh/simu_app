@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <header class="">
+    <header class="header--plantilla">
         <nav class="header__nav">
             <ul class="nav__list">
-                <li><span>1/10</span></li>
-                <li><span>MATERIA</span></li>
+                <li class="nav__item--purple"><span id="contadorPreguntas"></span>/10</li>
+                <li><span id="nombreMateria"></span></li>
                 <li><span>SALIR</span></li>
             </ul>
         </nav>
@@ -24,16 +24,17 @@
         </article>
         <article class="main__pregunta">
             <button class="pregunta__button" id="botonVerPregunta">VER PREGUNTA ▼</button>
-            <section class="pregunta__contenido" id="contenidoPregunta">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cum ab atque magnam dolores libero dolorum rerum, quaerat sapiente nihil sint est impedit repellat in deleniti provident consectetur magni suscipit.
+            <section id="contenidoPregunta" class="pregunta__contenido ocultar">
             </section>
         </article>
-        <article class="main__opciones">
-            
+        <article class="main__opciones" id="opcionesContenido">
+
         </article>
+        <button id="siguienteBtn"></button>
+        <button id="enviarRespuesta"></button>
     </main>
     <footer></footer>
 
-    <script src="../js/plantilla.js"></script>
+    <script type="module" src="../js/plantilla.js"></script>
 </body>
 </html>

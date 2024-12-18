@@ -1,64 +1,134 @@
 const contenidoEnunciado = document.getElementById('contenidoEnunciado');
-const botonVerPregunta = document.getElementById('botonVerPregunta');
 const contenidoPregunta = document.getElementById('contenidoPregunta');
-const apiSimulacros = 'http://localhost:3005/simu/api/simulacro/generar';
-let numeroPregunta = 0;
+const contadorPreguntas = document.getElementById('contadorPreguntas');
+const nombreMateria = document.getElementById('nombreMateria');
+const opcionesContenido = document.getElementById('opcionesContenido');
+const siguienteBtn = document.getElementById('siguienteBtn'); 
+const enviarBtn = document.getElementById('enviarRespuesta'); 
+const verPreguntaBtn = document.getElementById('botonVerPregunta');
+const apiSimulacros = `http://localhost:3005/simu/api/simulacro/generar/9`;
+const usuarioId = 9; // ID del usuario
+let preguntasSeleccionadas = []; // Array para almacenar las preguntas y respuestas
+let preguntaActual = 0; // Índice de la pregunta actual
 
-
-async function cargarSimulacro() {
+const obtenerPreguntas = async () => {
     try {
-      // Datos a enviar
-      const datosEnviar = { usuario_id: '123' };
-  
-      // Configuración de la solicitud
-      const response = await fetch(apiSimulacros, {
-        method: 'POST', // Cambias el método a POST
-        headers: {
-          'Content-Type': 'application/json', // Asegúrate de que el servidor espere JSON
-        },
-        body: JSON.stringify(datosEnviar), // Convertimos los datos a JSON
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-  
-      const data = await response.json();
-  
-      function mostrarSimulacro() {
-        if (numeroPregunta < data.length) {
-          contenidoEnunciado.innerText = data[numeroPregunta].enunciado;
-        } else {
-          contenidoEnunciado.innerText = 'No hay más preguntas.';
-        }
-      }
-  
-      mostrarSimulacro();
-  
-      botonSiguiente.addEventListener('click', () => {
-        numeroPregunta++;
-        mostrarSimulacro();
-      });
+        const response = await fetch(apiSimulacros);
+        const preguntas = await response.json();
+        preguntasSeleccionadas = preguntas; // Guardar las preguntas obtenidas
+        mostrarPregunta(preguntaActual);
     } catch (error) {
-      console.error('Hubo un problema con el fetch:', error);
+        console.error('Error al obtener preguntas:', error);
     }
-  }
+};
 
-  cargarSimulacro();
+const mostrarPregunta = (index) => {
+    if (index < preguntasSeleccionadas.length) {
+        const pregunta = preguntasSeleccionadas[index];
+        nombreMateria.innerText = pregunta.nombreMateria;
+        contenidoEnunciado.innerText = pregunta.enunciado;
+        contadorPreguntas.innerText = preguntaActual + 1; // Mostrar el número de pregunta actual
+        contenidoPregunta.innerText = pregunta.detallePregunta;
+        opcionesContenido.innerHTML = `
+            ${pregunta.opciones.map(opcion => `
+                <label>
+                    <input type="radio" name="respuesta" value="${opcion.opcion_texto}">
+                    ${opcion.opcion_texto}
+                </label>
+            `).join('')}
+        `;
 
+        // Mostrar el botón "Siguiente" y ocultar el botón "Enviar Respuestas"
+        siguienteBtn.style.display = 'block';
+        enviarBtn.style.display = 'none';
 
-const abrirPregunta = () => {
-    if (contenidoPregunta.style.display === 'block') {
-        contenidoPregunta.style.display = 'none';
-        botonVerPregunta.textContent = 'VER PREGUNTA ▼'
-        return;
-    } 
-        contenidoPregunta.style.display = 'block';
-        botonVerPregunta.textContent = 'OCULTAR PREGUNTA ▲'
+        // Deshabilitar el botón "Siguiente" inicialmente
+        siguienteBtn.disabled = true;
+
+        // Agregar evento para habilitar el botón "Siguiente" si hay una opción seleccionada
+        opcionesContenido.addEventListener('change', () => {
+            const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
+            siguienteBtn.disabled = !seleccionada; // Habilitar o deshabilitar el botón
+        });
+
+        siguienteBtn.textContent = 'SIGUIENTE';
+        siguienteBtn.onclick = () => {
+            guardarRespuesta(); // Guardar respuesta antes de avanzar
+            preguntaActual++;
+            if (preguntaActual < preguntasSeleccionadas.length) {
+                mostrarPregunta(preguntaActual);
+            } else {
+                mostrarBotonEnviar();
+            }
+        };
     }
+};
 
-    botonVerPregunta.addEventListener('click', abrirPregunta);
+const guardarRespuesta = () => {
+    const seleccionada = document.querySelector(`input[name="respuesta"]:checked`);
+    if (seleccionada) {
+        // Guardar la respuesta en la pregunta actual
+        preguntasSeleccionadas[preguntaActual].respuesta = seleccionada.value; 
+    } else {
+        // Si no hay respuesta seleccionada, puedes manejarlo aquí (opcional)
+        preguntasSeleccionadas[preguntaActual].respuesta = null; // O puedes omitir esta línea
+    }
+};
 
+const mostrarBotonEnviar = () => {
+    // Mostrar el botón "Enviar Respuestas" y ocultar el botón "Siguiente"
+    enviarBtn.textContent = 'Enviar Respuestas';
+    enviarBtn.onclick = enviarRespuestas;
+    enviarBtn.style.display = 'block';
+    siguienteBtn.style.display = 'none'; // Ocultar el botón "Siguiente"
+};
+
+const enviarRespuestas = async () => {
+    const respuestas = preguntasSeleccionadas.map(pregunta => ({
+        preguntaId: pregunta.id,
+        respuesta: pregunta.respuesta || '' // Asegúrate de que haya una respuesta
+    }));
+
+    const payload = {
+        usuario_id: usuarioId,
+        respuestas: respuestas
+    };
+
+    try {
+        const response = await fetch('http://localhost:3005/simu/api/simulacro/enviar-respuestas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        console.log('Respuestas enviadas:', result);
+        // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito
+    } catch (error) {
+        console.error('Error al enviar respuestas:', error);
+    }
+};
+
+const verPregunta = () => {
+    contenidoPregunta.classList.toggle('ocultar');
+}
+
+verPreguntaBtn.addEventListener('click', verPregunta);
+document.addEventListener('DOMContentLoaded', obtenerPreguntas);
+    // import verificarToken from './auth.js';
+
+// const init = async () => {
+//     const datos = await verificarToken();
+//     if (!datos) {
+//         console.log(datos)
+//         return;
+//     }
+
+// }
+
+// document.addEventListener('DOMContentLoaded', init);
 
 
     // [

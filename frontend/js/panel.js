@@ -5,7 +5,6 @@ const contenidoNosotros = document.getElementById('seccionNosotros');
 const irSeccionNosotros = document.getElementById('irSeccionNosotros');
 const irSeccionSimulacros = document.getElementById('irSeccionSimulacros');
 const botonCerrarSesion = document.getElementById('cerrarSesion');
-let timeout;
 
 const mostrarSeccionNosotros = (e) => {
     e.preventDefault();
@@ -74,39 +73,17 @@ botonCerrarSesion.addEventListener('click', confirmarCerrarSesion);
 
 window.addEventListener('scroll', asideFixed);
 
-const verificarToken = async () => {
-    const token = localStorage.getItem('token');
-    const datos = jwt_decode(token); 
-    
-    if (!token) {
-        console.log('No se encontró token, redirigiendo a login...');
-        window.location.href = 'login.html';
+import verificarToken from './auth.js';
+
+const init = async () => {
+    const datos = await verificarToken();
+    if (!datos) {
+        mostrarContenido.classList.add('ocultar'); 
         return;
     }
-
-    try {
-        const response = await fetch('http://localhost:3005/simu/auth/validar-token', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('Token expirado o inválido');
-            } else {
-                throw new Error('Error en el servidor');
-            }
-        }
-
-        mostrarContenido.classList.remove('ocultar');
-        spanNombreUsuario.innerText = datos.nombre;
-
-    } catch (error) {
-        console.error('Error al verificar el token:', error.message);
-        window.location.href = 'login.html'; 
-    }
+    
+    mostrarContenido.classList.remove('ocultar');
+    spanNombreUsuario.innerText = datos.nombre;
 }
 
-document.addEventListener('DOMContentLoaded', verificarToken);
+document.addEventListener('DOMContentLoaded', init);
