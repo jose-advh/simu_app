@@ -88,7 +88,7 @@ Content-Type: application/json
 
 
 ### api para editar un intento
-POST http://localhost:3005/simu/api/intento/editar/1
+PUT http://localhost:3005/simu/api/intento/editar/1
 Content-Type: application/json
 
 {
@@ -96,7 +96,7 @@ Content-Type: application/json
     "fecha_inicio": "2023-10-02T10:00:00Z",
     "hora_final": null,
     "puntuaciones": {
-        "matematicas": 3,
+        "matematicas": 4,
         "lectura": 3,
         "naturales": 0,
         "sociales": 0,

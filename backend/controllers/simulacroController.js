@@ -85,9 +85,8 @@ const simulacroController = {
 
   async enviarRespuestas(req, res) {
     try {
-      const { usuario_id, respuestas } = req.body; // respuestas es un array de objetos con { preguntaId, respuesta }
+      const { usuario_id, respuestas } = req.body; 
       
-      // Obtener los intentos del usuario
       const intentosResponse = await axios.get(`${API_BASE_URL}/intentos/${usuario_id}`);
       const intentos = intentosResponse.data.intentos;
 
@@ -95,26 +94,22 @@ const simulacroController = {
           return res.status(404).send({ message: 'No se encontraron intentos para este usuario' });
       }
 
-      // Tomar el último intento
-      const ultimoIntento = intentos[0]; // Suponiendo que los intentos están ordenados por fecha de inicio
+      const ultimoIntento = intentos[0]; 
       const intentoId = ultimoIntento.id_intento;
 
-      // Crear respuestas
       for (const respuesta of respuestas) {
           const { preguntaId, respuesta: opcionSeleccionada } = respuesta;
 
-          // Crear el objeto de respuesta
           const respuestaReq = {
               body: {
-                  id: preguntaId, // Asumiendo que el id de respuesta es el mismo que el id de la pregunta
+                  id: preguntaId, 
                   intento: intentoId,
                   pregunta: preguntaId,
                   opcion_seleccionada: opcionSeleccionada,
-                  puntos: 1 // Inicialmente, los puntos se establecerán en 1
+                  puntos: 1 
               }
           };
 
-          // Crear la respuesta utilizando el controlador
           const respuestaRes = {
               status: (statusCode) => ({
                   json: (data) => {
@@ -137,28 +132,18 @@ const simulacroController = {
     try {
       const { usuario_id } = req.params;
 
-      // Obtener los intentos del usuario
       const intentosResponse = await axios.get(`${API_BASE_URL}/intentos/${usuario_id}`);
       const intentos = intentosResponse.data.intentos;
 
       if (intentos.length === 0) return res.status(404).send({ message: 'No se encontraron intentos para este usuario' });
 
-      // Tomar el último intento
       const ultimoIntento = intentos[0];
       const intentoId = ultimoIntento.id_intento;
 
-      // Obtener las respuestas del último intento
       const respuestasResponse = await axios.get(`${API_BASE_URL}/respuesta/intento/${intentoId}`);
       const respuestas = respuestasResponse.data.respuesta;
 
-      const resultados = {
-        matematicas: 0,
-        lectura: 0,
-        naturales: 0,
-        sociales: 0,
-        ingles: 0,
-        general: 0,
-      };
+      let puntuaciones_general = 300;
 
       for (const respuesta of respuestas) {
         const preguntaId = respuesta.pregunta_id;
@@ -167,29 +152,21 @@ const simulacroController = {
         const pregunta = preguntaResponse.data;
 
         if (respuesta.opcion_seleccionada == pregunta.es_correcta) {
-          const nombreMateria = pregunta.nombre_materia.toLowerCase();
-          if (resultados[nombreMateria] !== undefined) {
-            resultados[nombreMateria] += 10; // Asignar puntos por respuesta correcta
-          }
+          puntuaciones_general += 10;
         }
       }
+      
 
       const hora_final = new Date();
-      resultados.general = Object.values(resultados).reduce((acc, puntos) => acc + puntos, 0);
-
-      await axios.post(`${API_BASE_URL}/intento/editar/${intentoId}`, {
+      
+      await axios.put(`${API_BASE_URL}/intento/editar/${intentoId}`, {
         usuario_id,
         fecha_inicio: ultimoIntento.fecha_inicio,
         hora_final,
-        matematicas: resultados.matematicas,
-        lectura: resultados.lectura,
-        naturales: resultados.naturales,
-        sociales: resultados.sociales,
-        ingles: resultados.ingles,
-        general: resultados.general        
-      });
+        puntuacion_general: puntuaciones_general
+      })
 
-      res.status(200).json({ resultados });
+      res.status(200).json({ puntuaciones_general });
 
     } catch (error) {
       console.error('Error al enviar resultados', error);

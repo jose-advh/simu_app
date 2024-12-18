@@ -1,4 +1,4 @@
-import Pregunta from '../models/Pregunta.js'; // Importar el modelo Pregunta
+import Pregunta from '../models/Pregunta.js'; 
 
 
 export const obtenerPreguntaAleatoriaId = async (req, res) => {
@@ -17,14 +17,14 @@ export const obtenerPreguntaAleatoriaId = async (req, res) => {
 
 
 export const obtenerPreguntaPorId = async (req, res) => {
-  const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
+  const { id } = req.params; 
   try {
-    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const pregunta = new Pregunta(); 
     const preguntaEncontrada = await pregunta.obtenerPreguntaPorId(id); // Llamar al método de instancia
     if (!preguntaEncontrada) {
       return res.status(404).json({ error: 'No se encontró la pregunta con el ID especificado' });
     }
-    res.json({ pregunta: preguntaEncontrada }); // Enviar la pregunta como respuesta
+    res.json({ pregunta: preguntaEncontrada }); 
   } catch (error) {
     console.error('Error en el controlador:', error);
     res.status(500).json({ error: 'Error al obtener la pregunta por ID en controlador' });
@@ -47,15 +47,15 @@ export const obtenerNombreMateriaPorId = async (req, res) => {
 };
 
 export const obtenerEnunciadoPorId = async (req, res) => {
-  const { id } = req.params; // Obtener el ID de la pregunta desde la URL
+  const { id } = req.params; 
   try {
-    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const pregunta = new Pregunta(); 
     const enunciado = await pregunta.obtenerEnunciadoPorId(id); // Ll
     
     if (!enunciado || enunciado.length === 0) {
       return res.status(404).json({ error: 'No se encontró el enunciado' });
     }
-    res.json({ enunciado }); // Enviar el enunciado como respuesta
+    res.json({ enunciado }); 
     } catch (error) {
       console.error('Error al traer el enunciado :', error);
       res.status(500).json({ error: 'Error al obtener el enunciado' });
@@ -63,14 +63,14 @@ export const obtenerEnunciadoPorId = async (req, res) => {
 };
 
 export const obtenerDetallePreguntaPorId = async (req, res) => {
-  const { id } = req.params; // Obtener el ID de la pregunta desde la URL
+  const { id } = req.params; 
   try {
-    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const pregunta = new Pregunta(); 
     const detallePregunta = await pregunta.obtenerDetallePreguntaPorId(id); // Ll
     if (!detallePregunta || detallePregunta.length === 0) {
       return res.status(404).json({ error: 'No se encontró el detalle de la pregunta' });
     }
-    res.json({ detallePregunta }); // Enviar el detalle de la pregunta como respuesta
+    res.json({ detallePregunta }); 
   } catch (error) {
     console.error('Error en el controlador:', error);
     res.status(500).json({ error: 'Error al obtener el detalle de la pregunta' });
@@ -78,14 +78,14 @@ export const obtenerDetallePreguntaPorId = async (req, res) => {
 };
 
 export const obtenerOpcionesPorPreguntaId = async (req, res) => {
-  const { id } = req.params; // Obtener el ID de la pregunta de los parámetros de la solicitud
+  const { id } = req.params; 
   try {
-    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const pregunta = new Pregunta(); 
     const opciones = await pregunta.obtenerOpcionesPorPreguntaId(id); // Llamar al método de instancia
     if (!opciones || opciones.length === 0) {
       return res.status(404).json({ error: 'No se encontraron opciones para la pregunta especificada' });
     }
-    res.json({ opciones }); // Enviar las opciones como respuesta
+    res.json({ opciones }); 
   } catch (error) {
     console.error('Error en el controlador:', error);
     res.status(500).json({ error: 'Error al obtener las opciones por ID de pregunta en controlador' });
@@ -93,14 +93,14 @@ export const obtenerOpcionesPorPreguntaId = async (req, res) => {
 };
 
 export const obtenerEsCorrectaPorId = async (req, res) => {
-  const { id } = req.params; // Obtener el ID de la pregunta de los par
+  const { id } = req.params; 
   try {
-    const pregunta = new Pregunta(); // Crear una instancia de Pregunta
+    const pregunta = new Pregunta(); 
     const esCorrecta = await pregunta.obtenerEsCorrectaPorId(id); // Ll
     if (!esCorrecta) {
       return res.status(404).json({ error: 'No se encontró la respuesta correcta'})
     }
-    res.json({ esCorrecta }); // Enviar la respuesta correcta como respuesta
+    res.json({ esCorrecta }); 
     } catch (error) {
       console.error('Error en el controlador:', error);
       res.status(500).json({ error: 'Error al obtener la respuesta correcta en control'});
