@@ -11,9 +11,7 @@ dotenv.config();
 
 const app = express();
 dotenv.config();
-
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
-app.use(express.static("frontend"));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/simu", authRoutes);
